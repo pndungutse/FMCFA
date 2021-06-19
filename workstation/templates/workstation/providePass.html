@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>provide pass</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            } 
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            } 
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            } 
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        document.getElementById('todays_date').textContent = date;
+
+    </script>
+
+    <h1 style="text-align: center;">Permission Paper</h1>
+    <br><br>
+
+    <p style="font-size: large;">This beneficiary <strong>{{beneficiary.name}}</strong> with FARG code of <strong>{{beneficiary.ben_code}}</strong>, born at {{beneficiary.dob}}, 
+    lives in {{beneficiary.province}} Province, {{beneficiary.district}} District and {{beneficiary.sector}} Sector is given this
+    permission paper to be allowed to be treated in {{hospital}} Hospital.
+    </p>
+    <br><br><br>
+
+    <p style="font-size: large;">For any question, do not hasitate to contact us</p> <br><br>
+ 
+    <p style="font-size: large; margin-left: 500px;"><strong>{{hospital.agent}}</strong></p>
+    <p style="font-size: large; margin-left: 500px;"><strong>{{hospital.agent.email}}</strong></p>
+    <p style="font-size: large; margin-left: 500px;"><strong>{{hospital}}</strong></p>
+
+
+
+    
+
+
+
+
+
+
+</body>
+</html>

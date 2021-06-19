@@ -1,0 +1,20 @@
+{% extends 'dashboard_layout.html' %} {% block body%} 
+{% load crispy_forms_tags %}
+
+  <!-- Tab -->
+<div class="row">
+  <div class="card shadow col-md-8">
+    <h2 class="text-uppercase mb-3">Detail of {{ object.drugName }}</h2>
+      <form  method="post">
+<p>Age: {{ object.id }}</p>
+<p>Current Resident: {{ object.unitPrice }}</p>
+<p>Birth Province: {{ object.totalPrice }}</p>
+<p>Birth District: {{ object.quantity }}</p>
+<p>Date: {{ object.date | }}</p>
+    <a href="{% url 'list_drug' %}" class="btn btn-primary">Cancel</a>
+   </form>
+
+  </div>
+</div>
+
+{% endblock body %}

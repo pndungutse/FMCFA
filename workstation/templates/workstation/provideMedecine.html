@@ -1,0 +1,35 @@
+{% extends 'workers/pharmacist/pharmacyDashboard.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <h5>List of all Medecine that are not yet given to <strong>{{beneficiary}}</strong></h5> <br>
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Beneficiary</th>
+                            <th>Medecine</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ord in pending_medecines %}
+                        <tr>
+                            <td>{{ord.beneficiary}}</td>
+                            <td>{{ord.drug}}</td>
+                            <td>{{ord.status}}</td>
+                            <td>
+                                <a href="{% url 'deliverMedecine' ord.id %}" class="btn btn-sm btn-primary">Deliver</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                {% comment %} <a href="{% url 'ordonance' beneficiary.id %}" class="btn btn-block btn-success">Print Ordonance</a> {% endcomment %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

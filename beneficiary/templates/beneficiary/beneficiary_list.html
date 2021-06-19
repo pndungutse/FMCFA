@@ -1,0 +1,55 @@
+
+{% extends 'dashboard_layout.html' %} {% block title %}Beneficiary{% endblock %} {% block body %}
+
+<div class="content-dashboard">
+    <h3 class="text-uppercase text-info">list of Beneficiary</h3>
+    {% if user.is_superuser %}
+    <a class="btn btn-primary mt-1 mb-1" href="{% url 'create_beneficiary' %}" style="text-decoration: none;">Add
+        beneficiary</a>
+        {% endif %}
+    <div class="row">
+        <div class="col-md-12 card shadow-sm  pb-7 p-4">
+            {% include 'generic/filter_form.html' %}
+            <table class="table table-hover">
+                <caption></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Beneficiary Code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Province</th>
+                        <th scope="col">District</th>
+                        <th scope="col">Sector</th>
+                        <th scope="col">Cell</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%if beneficiaries %}{% for new in beneficiaries %}
+                    <tr style='cursor: pointer;' onclick="window.location='{% url 'detail_beneficiary' pk=new.id %}';">
+                        <td>{{ new.ben_code|slice:"20" }}{% if new.ben_code|length > 20 %}...{% endif %}
+                        <td>{{ new.name|slice:"20" }}{% if new.name|length > 20 %}...{% endif %}
+                        </td>
+                        <td>{{ new.gender|slice:"20" }}{% if new.name|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.province|slice:"20" }}{% if new.province|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.district|slice:"20" }}{% if new.district|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.sector|slice:"20" }}{% if new.sector|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.cell|slice:"20" }}{% if new.cell|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.address|slice:"15" }}{% if new.address|length > 15 %}...{% endif %}</td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan="2">
+                            <p class="text-centered ">No Data to Display</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% include 'generic/paginator.html' %}
+        </div>
+    </div>
+</div>
+<script>
+</script>
+{% endblock %}

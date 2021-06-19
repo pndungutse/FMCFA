@@ -1,0 +1,28 @@
+{% extends 'dashboard_layout.html' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-9">
+            <table border="1">
+                <tr>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>dob</th>
+                    <th>district</th>
+                    <th>Action</th>
+                </tr>
+                {% for beneficiary in drugs %}
+                                <tr>
+                    <td>{{beneficiary.drugName}}</td>
+                    <td>{{beneficiary.unitPrice}}</td>
+                    <td>{{beneficiary.totalPrice}}</td>
+                    <td>{{beneficiary.quantity}}</td>
+                    <td><a href="{% url 'detail_drug' pk=beneficiary.id %}">View</a>
+                        <a href="{% url 'update_drug' pk= beneficiary.id %}">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock body %}

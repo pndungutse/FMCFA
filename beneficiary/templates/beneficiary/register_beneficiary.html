@@ -1,0 +1,103 @@
+{% extends 'dashboard_layout.html' %} {% block title %}Beneficiary Form{% endblock %} {% block body %}
+
+<div class="content-dashboard">
+  <div class="row card shadow-sm mt-4 pb-4 p-4 ">
+    <div style="margin-left: 80px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h3 class="mb-4 text-centered text-info text-uppercase">Fill this form to {{title}} Beneficiary</h3>
+      {{ form.non_field_errors}}{{form.media}}
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.ben_code.id_for_label }}">Code </label><span style="color:red;">*</span> <br>
+              {{form.ben_code}} {% for error in form.ben_code.errors %}
+              <span class="text-danger">{{error}}</span> {% endfor %}
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.email.id_for_label }}">District</label><span style="color:red;">*</span> <br>
+              {{form.district}} {% for error in form.district.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.name.id_for_label }}">Name </label><span style="color:red;">*</span><br>
+              {{form.name}} {% for error in form.title.errors %}
+              <span class="text-danger">{{error}}</span> {% endfor %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <!-- <div class="col-md-6"> -->
+              
+            <!-- </div> -->
+            <div class="form-group">
+              <label for="{{ form.dob.id_for_label }}">Sector</label><span style="color:red;">*</span><br>
+              {{form.sector}}
+              {% for error in form.sector.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.gender.id_for_label }}">Gender</label><span style="color:red;">*</span> <br>
+              {{form.gender}}
+              {% for error in form.gender.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- <div class="row"> -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="{{ form.cell.id_for_label }}">Cell</label><span style="color:red;">*</span><br>
+                {{form.cell}}
+                {% for error in form.cell.errors %}
+                <p class="text-danger"> {{error}}</p>
+                {% endfor %}
+              </div>
+            </div>
+
+            
+          <!-- </div> -->
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.dob.id_for_label }}">DOB</label><span style="color:red;">*</span> <br>
+              {{form.dob}}
+              {% for error in form.dob.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="{{ form.address.id_for_label }}">Address</label><span style="color:red;">*</span><br>
+            {{form.address}} {% for error in form.address.errors %}
+            <p class="text-danger"> {{error}}</p>
+            {% endfor %}
+          </div>
+        </div>
+        </div>
+        <a href="javascript:history.go(-1)" class="btn btn-outline-primary mt-2 text-size-sm px-5">Cancel</a>
+        <input type="submit" value="{{title}}" class="btn btn-primary mt-2 px-5">
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+</script>
+{% endblock %}

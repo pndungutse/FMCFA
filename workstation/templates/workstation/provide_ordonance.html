@@ -1,0 +1,52 @@
+{% extends 'workers/hosAgent/hospitalDashboard.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+{% load crispy_forms_tags %}
+<div>
+    <h3 class="text-center">Record Medecines as listed on Ordonance</h3>
+  </div>
+  <br />
+  <div>
+    <h4>
+      Beneficiary: <strong>{{beneficiary.name}}</strong>
+    </h4>
+  </div>
+  <br /><br />
+
+<div class="row">
+    <div class="col-md-5">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.drug|as_crispy_field}}
+        
+            <button type="submit" class="btn btn-success float-right">Submit</button>
+        
+        </form>
+    </div>
+<div class="col-md-1">
+
+</div>
+    <div class="col-md-6">
+        <h5>List of all Medecine that are not yet given to <strong>{{beneficiary}}</strong></h5> <br>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Beneficiary</th>
+                    <th>Medecine</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medecine in pedding_medecines %}
+                <tr>
+                    <td>{{medecine.beneficiary}}</td>
+                    <td>{{medecine.drug}}</td>
+                    <td>{{medecine.status}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a href="{% url 'ordonance' beneficiary.id %}" class="btn btn-block btn-success">Print Ordonance</a>
+    </div>
+</div> 
+
+{% endblock %}

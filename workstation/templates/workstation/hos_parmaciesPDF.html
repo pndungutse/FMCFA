@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals & pharmacies partners
+        <style>
+             @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+        </style>
+    </title>
+</head>
+<body>
+    
+    <div id="header_content"> 
+    FARG: <strong>Country Level</strong><br><br><br>
+    </div>
+    <br>
+    <br>
+
+    <div id="content_frame"> 
+    <h1 style="text-align: center;">List of all Hospitals and Pharmacies that are Partners</h1> <br>
+
+    <h2>Hospital List</h2>
+
+    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 50px;">Hospital Name</th>
+                    <th style="height: 50px;">Hospital Address</th>
+                    <th style="height: 50px; margin-right: 50px;">Hospital Agent</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for hospital in hospitals %}
+                
+                <tr>
+                    <td style="height: 50px; padding-left: 10px;">{{ hospital.name }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ hospital.address }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ hospital.agent }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table> <br><br>
+
+        <h2>Pharmacy List</h2>
+
+    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 50px;">Pharmacy Name</th>
+                    <th style="height: 50px;">Pharmacy Address</th>
+                    <th style="height: 50px; margin-right: 50px;">Pharmacy Agent</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for pharmacy in pharmacies %}
+                
+                <tr>
+                    <td style="height: 50px; padding-left: 10px;">{{ pharmacy.name }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ pharmacy.address }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ pharmacy.agent }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    
+    </div>
+    <br><br><br><br>
+    <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+    <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
+</body>
+</html>

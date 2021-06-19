@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all_beneficiaries</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div id="header_content"> 
+    FARG: <strong>Country Level</strong><br><br><br>
+    </div>
+    <br>
+    <br>
+
+    <div id="content_frame"> 
+    <h1 style="text-align: center;">List of all Beneficiaries that are registered</h1> <br><br>
+
+    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 50px;">Beneficiary Name</th>
+                    <th style="height: 50px;">Beneficiary Code </th>
+                    <th style="height: 50px; margin-right: 50px;">Gender</th>
+                    <th style="height: 50px;">District </th>
+                    <th style="height: 50px;">Sector </th>
+                    <th style="height: 50px;">Cell </th>
+                    <th style="height: 50px;">Address </th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for beneficiary in beneficiaries %}
+                
+                <tr>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.name }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.ben_code }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.gender }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.district }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.sector }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.cell }}</td>
+                    <td style="height: 50px; padding-left: 10px;">{{ beneficiary.address }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+    <br><br><br><br>
+    <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+    <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends 'dashboard_layout.html' %} {% block title %}pharmacies{% endblock %} {% block body %}
+
+
+<div class="content-dashboard">
+    <h3 class="text-uppercase text-info">list of Pharmacies</h3>
+    <a class="btn btn-primary mt-1 mb-1" href="{% url 'create_pharmacy' %}" style="text-decoration: none;">Add
+        pharmacy</a>
+    <div class="row">
+        <div class="col-md-12 card shadow-sm  pb-7 p-4">
+            {% include 'generic/filter_form.html' %}
+            <table class="table table-hover">
+                <caption></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Agent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for new in page_obj %}
+                    <tr style='cursor: pointer;' onclick="window.location='{% url 'detail_beneficiary' pk=new.id %}';">
+                        <td>{{ new.name|slice:"20" }}{% if new.name|length > 20 %}...{% endif %}
+                        </td>
+                        
+                        <td>{{ new.address|slice:"15" }}{% if new.address|length > 15 %}...{% endif %}</td>
+                        <td>{{ new.agent|slice:"20" }}{% if new.agent|length > 20 %}...{% endif %}</td>
+                    </tr>
+                    {% endfor %} 
+                    {% comment %} {% else %}
+                    <tr>
+                        <td colspan="2">
+                            <p class="text-centered ">No Data to Display</p>
+                        </td>
+                    </tr> {% endcomment %}
+                
+                </tbody>
+            </table>
+            {% include 'generic/paginator.html' %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

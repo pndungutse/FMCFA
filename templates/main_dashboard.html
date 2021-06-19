@@ -1,0 +1,114 @@
+{% extends 'dashboard_layout.html' %}
+{% block title %}
+FMCFA Dashboard
+{% endblock title %}
+{% block extrahead %}
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Juil', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: '# of beneficiaries',
+          data: ['{{january}}', '{{february}}', '{{march}}', '{{april}}', '{{may}}', '{{june}}', '{{july}}', '{{august}}', '{{september}}', '{{october}}', '{{november}}', '{{december}}'],
+          backgroundColor: [
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+            'rgba(43, 50, 80)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display: true
+            },
+            ticks: {
+              beginAtZero: true
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            },
+          }],
+        },
+        title: {
+          display: true,
+          text: 'Document Status chart'
+        }
+      }
+    });
+  });
+</script>
+{% endblock extrahead %}
+{% block body %}
+
+{% comment %} <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+  </ol>
+</nav> {% endcomment %}
+<div class="row mb-5">
+  <div class="col-md-3">
+    <div class="card shadow card-rounded p-2" style="background-color: #EBECED;">
+      <h3 class="text-default">No of Hospitals</h3>
+      <div class="text-center">
+        <h3>
+          {{no_hospitals}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow card-rounded p-2" style="background-color: #EBECED;">
+      <h3 class="text-default">No of Pharmacies</h3>
+      <div class="text-center">
+        <h3>
+          {{no_pharmacies}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow card-rounded p-2" style="background-color: #EBECED;">
+      <h3 class="text-default">No of Beneficiaries</h3>
+      <div class="text-center">
+        <h3>
+          {{no_beneficiaries}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card shadow card-rounded p-2" style="background-color: #EBECED;">
+      <h3 class="text-default">No of Medecines</h3>
+      <div class="text-center">
+        <h3>
+          {{no_drugs}}
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <canvas id="myChart" width="70" height="28"></canvas>
+  </div>
+</div>
+
+{% endblock body %}

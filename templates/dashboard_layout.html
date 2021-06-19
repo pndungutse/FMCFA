@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}FMCFA Dashboard{% endblock %}</title>
+    {% load static %}
+
+    
+    <!-- Custom styling -->
+    <link rel="stylesheet" href="{% static 'css/simple-sidebar.css'%}">
+
+    <!-- google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+    <!-- link for favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico'%}" type="image/x-icon">
+    <!-- Jquery -->
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+
+    <script src="{% static '/js/jquery.localize.min.js' %}"></script>
+    <script src="{% static '/js/internationalization.js' %}"></script>
+
+    <!--Chart js-->
+    <script src="{% static '/chartjs/chart.min.js' %}"></script>
+    <script src="{% static '/chartjs/jquery-3.3.1.minjs' %}"></script>
+    <script src="{% static '/chartjs/chartjs-plugin-datalabels.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/charcss/chart.min.css'%}">
+    <link rel="stylesheet" href="{% static '/charcss/semantic.min.css'%}">
+
+
+    <!-- Bootstrap CSS CDN -->
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>  
+
+    <!-- Font Awesome and feather fonts -->
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static '/fonts/feather/iconfont.css'%}">
+    {% block extrahead %}{% endblock %}
+</head>
+
+<body style=" background-color:#F8F9FA; font-family: 'Inconsolata', monospace;">
+
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar" aria-label="">
+            <div class="sidebar-header">
+                <img src="{% static 'assets/logoo.png' %}" alt="logoo" height="50" width="210">
+            </div>
+
+            <ul class="list-unstyled components">
+                {% if user.is_staff %}
+                <p> <strong>SUPER ADMIN</strong> </p>
+                {% else %}
+                <p> <strong>ADMIN</strong> </p>
+                {% endif %}
+                <li class="{% if 'dashboard' in request.path %} active {% endif %}">
+                    <a href="{% url 'dashboard' %}"><span class="feather icon-home"></span> Dashboard</a>
+                </li>
+                {% if user.is_superuser %}
+                <li class="{% if 'beneficiary/list' in request.path %} active {% endif %}">
+                    <a href="{% url 'list_beneficiary' %}"><span class="feather icon-link"></span> Beneficies</a>
+                </li>
+                <li class="{% if 'hospital/list' in request.path %} active {% endif %}">
+                    <a href="{% url 'hospital_list' %}"><span class="feather icon-link"></span> Hospitals</a>
+                </li>
+                <li class="{% if 'pharmacy/list' in request.path %} active {% endif %}">
+                    <a href="{% url 'pharmacy_list' %}"><span class="feather icon-link"></span> Pharmacies</a>
+                </li>
+                <li class="{% if 'reports' in request.path %} active {% endif %}">
+                    <a href="{% url 'adminReports' %}"><span class="feather icon-link"></span> Reports</a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token%}
+                        <button class="btn btn-block mt-5" type="submit" id="logout">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <span class="nav-link mt-2 text-uppercase">Logged in as,
+                                    {{request.user.username}}</span>
+                            </li>
+                            <li class="nav-item">
+                                <span class="nav-link text-center text-capitalize" style="padding-top: 14.5px;" href="#"
+                                    id="avatar"><strong>
+                                        <h5>N</h5>
+                                    </strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            {% block body %} {% endblock %}
+        </div>
+    </div>
+
+    <!-- Popper.JS -->
+    <!-- Bootstrap JS -->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+        
+    </script>
+        <script type="text/javascript" src="{% static '/js/sweetalert2.js' %}"></script>
+
+    {% load sweetify %} {% sweetify %}
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+{% extends 'dashboard_layout.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+<div class="row">
+    <div class="col-md-8">
+        <a href="{% url 'list_beneficiary'%}" class="btn btn-primary btn-sm px-5 mb-2">Back</a>
+        <h3 class="text-info text-uppercase">Detail Page</h3>
+        <div class="card shadow-sm p-4 pb-7">
+
+            <h5 class="text-success">Name:</h5>
+            <p class="">{{beneficiary.name}}</p>
+            <h5 class="text-success">Address:</h5>
+            <p class="">{{beneficiary.address}}</p>
+            <h5 class="text-success">District:</h5>
+            <p>{{beneficiary.district}}</p>
+            <h5 class="text-success">Province:</h5>
+            <p>{{beneficiary.province}}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="p-4 mt-3">
+            <h3 class="text-info mb-4">Actions</h3>
+            <a href="{% url 'update_beneficiary' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Edit</a>
+            <a style="cursor: pointer;" class="btn btn-info form-control mb-4 text-white" data-id="{{beneficiary.id}}" onclick="showDialog(this)">Delete</a>
+            <a id="delete"></a>
+            <a href="{% url 'provide_ordonance' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Record Ordonace</a>
+        </div>
+    </div>
+</div>
+<script>
+    async function showDialog(item) {
+        await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#218838',
+            cancelButtonColor: '#0085CA',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("delete").href = "/beneficiary/" + item.getAttribute('data-id') + "/delete";
+                document.getElementById("delete").click()
+            }
+        })
+    };
+</script>
+
+
+{% endblock body %} 

@@ -1,0 +1,54 @@
+{% extends 'dashboard_layout.html' %} {% block title %}add hospital agent{% endblock %} {% block body %}
+
+
+<div class="content-dashboard">
+  <div class="row card shadow-sm mt-4 pb-4 p-4 ">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h3 class="mb-4 text-centered text-info text-uppercase">Fill this form to Register Hospital Agent</h3>
+      {{ form.non_field_errors}}{{form.media}}
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.username.id_for_label }}">Username </label><span style="color:red;">*</span>
+              {{form.username}} {% for error in form.username.errors %}
+              <span class="text-danger">{{error}}</span> {% endfor %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.email.id_for_label }}">Email</label><span style="color:red;">*</span>
+              {{form.email}} {% for error in form.email.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.password1.id_for_label }}">Password</label><span style="color:red;">*</span>
+              {{form.password1}} {% for error in form.password1.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.password2.id_for_label }}">Confirm Password</label><span style="color:red;">*</span>
+              {{form.password2}} {% for error in form.password2.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <a href="javascript:history.go(-1)" class="btn btn-outline-primary mt-2 text-size-sm px-5">Cancel</a>
+        <input type="submit" value="Register" class="btn btn-primary mt-2 px-5">
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

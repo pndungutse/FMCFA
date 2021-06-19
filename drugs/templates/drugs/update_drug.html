@@ -1,0 +1,16 @@
+{% extends 'dashboard_layout.html' %} {% block body%} 
+{% load crispy_forms_tags %}
+
+  <!-- Tab -->
+<div class="row">
+  <div class="card shadow col-md-8">
+    <h2 class="text-uppercase mb-3">Drug issuing Data</h2>
+      <form  method="post">
+    {% csrf_token %} {{form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-primary"/>
+  </form>
+
+  </div>
+</div>
+
+{% endblock body %}

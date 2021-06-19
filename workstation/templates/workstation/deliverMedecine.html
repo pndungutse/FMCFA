@@ -1,0 +1,40 @@
+{% extends 'workers/pharmacist/pharmacyDashboard.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+{% load crispy_forms_tags %}
+    <h1 class="text-center">Medecine Information</h1>
+<br>
+<h3 class="text-info text-uppercase">Medecine Info</h3>
+<div class="row">
+    
+    <div class="col-md-6">
+        <!-- <a href="{% url 'list_beneficiary'%}" class="btn btn-primary btn-sm px-5 mb-2">Back</a> -->
+        
+        <div class="card shadow-sm p-4 pb-7">
+    
+            <h5 class="text-success">Drug Name:</h5>
+            <p class="">{{ord_med.drug.name}}</p>
+            <h5 class="text-success">Beneficiary Code:</h5>
+            <p class="">{{ord_med.beneficiary.ben_code}}</p>
+            <h5 class="text-success">Beneficiary Name:</h5>
+            <p class="">{{ord_med.beneficiary.name}}</p>
+            <h5 class="text-success">Hospital Name:</h5>
+            <p>{{ord_med.hospital.name}}</p>
+            <h5 class="text-success">Medecine Status:</h5>
+            <p>{{ord_med.drug.status}}</p>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <form role="search" action="{% url 'saveDrugIssue' ord_med.beneficiary.id %}">
+            <input type="hidden" name="ord_id" value="{{ord_med.id}}">
+            <div class="form-group">
+                <label for="quantity">Quantity </label><span style="color:red;">*</span>
+                <input name="quantity" type="number" class="form-control">
+            </div>
+            <input name="drug" type="hidden" value="{{ord_med.drug.id}}">
+        
+            <input type="submit" value="Submit" class="btn btn-success mt-2 px-5 float-right">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

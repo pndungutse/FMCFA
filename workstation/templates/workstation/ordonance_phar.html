@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ordonance_phar</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="header_content"> 
+    Beneficiary Code: <strong>{{beneficiary.ben_code}}</strong><br><br>
+    Beneficiary Name: <strong>{{beneficiary.name}}</strong> <br><br>
+    Beneficiary Address: <strong>{{beneficiary.address}}</strong><br><br>
+    </div>
+
+    <br><br>
+    <div id="content_frame"> 
+        <h1 style="text-align: center;">Ordonance Paper to provide to Pharmacy</h1> <br><br>
+
+        <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 50px;">Medecine Name</th>
+                    <th style="height: 50px;">Medecine price</th>
+                    <th style="height: 50px; margin-right: 50px;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for medecine in pending_medecines %}
+                
+                <tr>
+                    <td style="height: 50px; padding-left: 38px;">{{ medecine.drug.name }}</td>
+                    <td style="height: 50px; padding-left: 38px;">{{ medecine.drug.unitPrice }}</td>
+                    <td style="height: 50px; padding-left: 38px;">{{ medecine.status }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+        <br><br><br><br><br><br><br><br><br><br>
+    
+            
+
+    </div>
+</body>
+</html>

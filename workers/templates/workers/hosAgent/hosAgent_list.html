@@ -1,0 +1,44 @@
+{% extends 'dashboard_layout.html' %} {% block title %}hospitalAgent{% endblock %} {% block body %}
+
+<div class="content-dashboard">
+    <h3 class="text-uppercase text-info">list of hospitalAgent</h3>
+    <a class="btn btn-primary mt-1 mb-1" href="{% url 'create_hospitalAgent' %}" style="text-decoration: none;">Add
+        hospitalAgent</a>
+    <div class="row">
+        <div class="col-md-12 card shadow-sm  pb-7 p-4">
+            {% include 'generic/filter_form.html' %}
+            <table class="table table-hover">
+                <caption></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%if hospitalAgents %}{% for new in hospitalAgents %}
+                    <tr style='cursor: pointer;' onclick="window.location='{% url 'hospitalAgent_detail' id=new.id %}';">
+                        <td>{{ new.name|slice:"20" }}{% if new.name|length > 20 %}...{% endif %}
+                        </td>
+                        <td>{{ new.phone|slice:"20" }}{% if new.phone|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.email|slice:"15" }}{% if new.email|length > 15 %}...{% endif %}</td>
+                        <td>{{ new.address|slice:"15" }}{% if new.address|length > 15 %}...{% endif %}</td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan="2">
+                            <p class="text-centered ">No Data to Display</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% include 'generic/paginator.html' %}
+        </div>
+    </div>
+</div>
+<script>
+</script>
+{% endblock %}

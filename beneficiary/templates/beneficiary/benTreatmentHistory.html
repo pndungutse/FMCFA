@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+        .styled-table {
+            border-collapse: collapse;
+            /* margin: 25px 0; */
+            font-size: 1.0em;
+            font-family: sans-serif;
+            width: 900px;
+            height: 100px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content"> 
+    Hospital: <strong>{{hospital}}</strong><br><br>
+    Hospital Address: <strong>{{hospital.address}}</strong> <br><br><br>
+
+    Beneficiary Code: <strong>{{beneficiary.ben_code}}</strong><br><br>
+    Beneficiary Name: <strong>{{beneficiary.name}}</strong> <br><br>
+    Beneficiary Address: <strong>{{beneficiary.address}}</strong><br><br>
+    </div>
+    <br><br>
+    <div id="content_frame"> 
+        <h2 style="text-align: center;">Treatment History for {{beneficiary}} with {{beneficiary.ben_code}} at {{hospital}}</h2>
+        <br><br>
+
+        <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 50px;">Beneficiary Name</th>
+                    <th style="height: 50px;">Beneficiary Code</th>
+                    <th style="height: 50px;">Hospital</th>
+                    <th style="height: 50px;">Date Entered</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pass in passes %}
+                    <tr>
+                        <td style="height: 50px; padding-left: 38px;">{{pass.beneficiary.name}}</td>
+                        <td style="height: 50px; padding-left: 38px;">{{pass.beneficiary.ben_code}}</td>
+                        <td style="height: 50px; padding-left: 20px;">{{pass.hospital.name}}</td>
+                        <td style="height: 50px; padding-left: 10px;">{{pass.date_created}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br><br><br><br><br><br><br>
+        <div>
+            <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+            <p style="margin-left: 550px;"><strong>{{hospital}}</strong></p>
+        </div>
+
+
+    </div>
+</body>
+</html>

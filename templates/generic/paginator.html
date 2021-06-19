@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    
+    {% load static %}
+</head>
+
+<body>
+    {% load widget_tweaks %}
+    {% load my_tags %}
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-1" style="display:flex; justify-content:flex-end;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a class="badge badge-primary text-white" style="color: #356A92;" href="?{% param_replace page=1 %}">&laquo; first</a>
+            <a class="badge badge-primary text-white" style="color: #356A92;"
+                href="?{% param_replace page=page_obj.previous_page_number %}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page  {{page_obj.number}} of  {{page_obj.paginator.num_pages}}.
+            </span> {% if page_obj.has_next %}
+            <a class="badge badge-primary text-white" style="color: #356A92;"
+                href="?{% param_replace page=page_obj.next_page_number %}">next</a>
+            <a class="badge badge-primary text-white" style="color: #356A92;"
+                href="?{% param_replace page=page_obj.paginator.num_pages %}">last &raquo;</a> {% endif %}
+        </span>
+    </div>
+</body>
+
+</html>
