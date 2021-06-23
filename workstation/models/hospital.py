@@ -8,7 +8,7 @@ from beneficiary.models import Beneficiary
 from workstation.models.pharmacy import Pharmacy
 
 STATUS = [
-    ("PEDDING", "PEDDING"),
+    ("PENDING", "PENDING"),
     ("DELIVERED", "DELIVERED"),
 ]
 
@@ -73,7 +73,7 @@ class Ordonance(models.Model):
     beneficiary = models.ForeignKey(Beneficiary, null=True, on_delete=models.CASCADE)
     hospital = models.ForeignKey(Hospital,null=True, on_delete=models.CASCADE)
     drug = models.ForeignKey(Drug, null=True, on_delete=models.CASCADE)
-    status = models.CharField(max_length=10, choices=STATUS, default='PEDDING')
+    status = models.CharField(max_length=10, choices=STATUS, default='PENDING')
     # pharmacy = models.ForeignKey(Pharmacy, null=True, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     

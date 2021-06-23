@@ -156,14 +156,14 @@ def provide_ordonance(request, pk):
             ordonance = form.save(commit=False)
             ordonance.beneficiary = beneficiary
             ordonance.hospital = hospital
-            ordonance.status = 'PEDDING'
+            ordonance.status = 'PENDING'
             ordonance.save()
             sweetify.success(request, success, text='You have successfully gave medical exam', icon='success', timerProgressBar='true', timer=3000)   
             return redirect(request.path)
         
-    pedding_medecines = beneficiary.ordonance_set.filter(status='PEDDING', hospital=hospital)
-    print(pedding_medecines)
-    context = {'form':form, 'beneficiary':beneficiary,'pedding_medecines':pedding_medecines}
+    pending_medecines = beneficiary.ordonance_set.filter(status='PENDING', hospital=hospital)
+    print(pending_medecines)
+    context = {'form':form, 'beneficiary':beneficiary,'pending_medecines':pending_medecines}
     return render(request, 'workstation/provide_ordonance.html', context)
 
 def print_ordonance(request, pk):
@@ -176,7 +176,7 @@ def print_ordonance(request, pk):
     hospital = Hospital.objects.get(agent=hospital_agent)
     
     beneficiary = Beneficiary.objects.get(id=pk)
-    pending_medecines = beneficiary.ordonance_set.filter(status='PEDDING', hospital=hospital).order_by('hospital')
+    pending_medecines = beneficiary.ordonance_set.filter(status='PENDING', hospital=hospital).order_by('hospital')
     total =0
     # for medecine in pending_medecines:
     #     total += medecine.drug['unitPrice']

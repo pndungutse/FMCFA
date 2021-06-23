@@ -54,7 +54,7 @@ def pharmacyStatisticalReport(request):
 def medecineProvision(request, pk_ben):
     
     beneficiary = Beneficiary.objects.get(id=pk_ben)
-    pending_medecines = Ordonance.objects.filter(beneficiary=beneficiary, status='PEDDING')
+    pending_medecines = Ordonance.objects.filter(beneficiary=beneficiary, status='PENDING')
     
     context = {'pending_medecines':pending_medecines}
     return render(request, 'workstation/provideMedecine.html', context)
@@ -63,7 +63,7 @@ def medecineProvision(request, pk_ben):
 def print_ordonance_phar(request, pk):
     template = get_template('workstation/ordonance_phar.html')
     beneficiary = Beneficiary.objects.get(id=pk)
-    pending_medecines = beneficiary.ordonance_set.filter(status='PEDDING').order_by('hospital')
+    pending_medecines = beneficiary.ordonance_set.filter(status='PENDING').order_by('hospital')
     
     context = {'beneficiary':beneficiary,'pending_medecines':pending_medecines}
     
