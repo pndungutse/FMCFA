@@ -1,3 +1,7 @@
+from workstation.models.pharmacy import Pharmacy
+from workers.models.pharmacist import Pharmacist
+from workstation.models.hospital import Hospital
+from workers.models.hosAgent import HospitalAgent
 from django.shortcuts import render, redirect, get_object_or_404
 import sweetify
 from django.contrib import messages
@@ -45,13 +49,19 @@ def beneficiaryDetailView(request, pk):
     return render(request, 'beneficiary/view_beneficiary.html', context)
 
 def beneficiaryDetailViewHos(request, pk):
+    user=request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
     beneficiary = Beneficiary.objects.get(id=pk)
-    context = {'beneficiary':beneficiary}
+    context = {'beneficiary':beneficiary, 'hospital':hospital}
     return render(request, 'beneficiary/view_beneficiary_hos.html', context)
 
 def beneficiaryDetailViewPhar(request, pk):
+    user = request.user
+    pharmacist = Pharmacist.objects.get(user=user)
+    pharmacy = Pharmacy.objects.get(agent=pharmacist)
     beneficiary = Beneficiary.objects.get(id=pk)
-    context = {'beneficiary':beneficiary}
+    context = {'beneficiary':beneficiary, 'pharmacy':pharmacy}
     return render(request, 'beneficiary/view_beneficiaryPhar.html', context)
 
 
@@ -75,6 +85,7 @@ class BeneficiaryListView(ListView):
 # @login_required(login_url='/accounts/login')
 # @allowed_users(allowed_roles=['hospital'])
 class BeneficiaryListViewHospital(ListView):
+    
     model = Beneficiary
     paginate_by = 5
     context_object_name = 'beneficiaries'
@@ -82,12 +93,18 @@ class BeneficiaryListViewHospital(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user=self.request.user
+        hospital_agent = HospitalAgent.objects.get(user=user)
+        hospital = Hospital.objects.get(agent=hospital_agent)
+        context['hospital'] = hospital
         context["find"] = BeneficiaryFilter(
             self.request.GET, queryset=Beneficiary.objects.all().order_by("id"))
         return context
 
     def get_queryset(self):
         return BeneficiaryFilter(self.request.GET, queryset=Beneficiary.objects.all().order_by("id")).qs
+
+    
     
 # @login_required(login_url='/accounts/login')
 # @allowed_users(allowed_roles=['pharmacy'])
@@ -99,6 +116,10 @@ class BeneficiaryListViewPharmacy(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        user=self.request.user
+        pharmacist = Pharmacist.objects.get(user=user)
+        pharmacy = Pharmacy.objects.get(agent=pharmacist)
+        context['pharmacy'] = pharmacy
         context["find"] = BeneficiaryFilter(
             self.request.GET, queryset=Beneficiary.objects.all().order_by("id"))
         return context

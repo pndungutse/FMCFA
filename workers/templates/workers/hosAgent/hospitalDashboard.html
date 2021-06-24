@@ -55,7 +55,7 @@
                     <a href="{% url 'hos_dashboard' %}"><span class="feather icon-home"></span> Dashboard</a>
                 </li>
 
-                <li class="{% if 'list_beneficiary' in request.path %} active {% endif %}">
+                <li class="{% if 'beneficiary' in request.path %} active {% endif %}">
                     <a href="{% url 'list_beneficiary_hos' %}"><span class="feather icon-link"></span> Beneficiaries</a>
                 </li>
 
