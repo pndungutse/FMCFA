@@ -1,8 +1,24 @@
-{% extends 'workers/pharmacist/pharmacyDashboard.html' %} {% block title %}reports{% endblock %} {% block body %}
+{% extends 'workers/pharmacist/pharmacyDashboard.html' %}
+{% block tagName %}
+<strong>{{pharmacy}}</strong>
+{% endblock %}
+ {% block title %}reports{% endblock %} {% block body %}
 <div class="row">
-    <div class="col-md-4">
-        <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal">Beneficiary Treatment history</button>
+<div class="col-md-4">
+        <a class="btn btn-block btn-primary" href="{% url 'lastWeekPharPDF' %}">Last Week Report</a>
     </div>
+    <div class="col-md-4">
+      <a class="btn btn-block btn-primary" href="{% url 'lastMonthPharPDF' %}">Last Month Report</a>
+  </div>
+  <div class="col-md-4">
+    <a class="btn btn-block btn-primary" href="{% url 'lastYearPharPDF' %}">Last Year Report</a>
+</div>  
+</div>
+<br><br>
+<div class="row">
+  <div class="col-md-4">
+    <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal">Beneficiary Treatment history</button>
+</div>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">

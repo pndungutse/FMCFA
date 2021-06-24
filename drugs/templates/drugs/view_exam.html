@@ -1,25 +1,21 @@
-{% extends 'dashboard_layout.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+{% extends 'dashboard_layout.html' %} {% block title %} medical exam Detail {% endblock title %} {% block body %}
 <div class="row">
     <div class="col-md-8">
         <a href="{% url 'list_beneficiary'%}" class="btn btn-primary btn-sm px-5 mb-2">Back</a>
-        <h3 class="text-info text-uppercase">Detail Page</h3>
+        <h3 class="text-info text-uppercase">Medical Exam Detail Page</h3>
         <div class="card shadow-sm p-4 pb-7">
 
             <h5 class="text-success">Name:</h5>
-            <p class="">{{beneficiary.name}}</p>
-            <h5 class="text-success">Address:</h5>
-            <p class="">{{beneficiary.address}}</p>
-            <h5 class="text-success">District:</h5>
-            <p>{{beneficiary.district}}</p>
-            <h5 class="text-success">Province:</h5>
-            <p>{{beneficiary.province}}</p>
+            <p class="">{{exam.name}}</p>
+            <h5 class="text-success">Price:</h5>
+            <p class="">{{exam.price}}</p>
         </div>
     </div>
     <div class="col-md-4">
         <div class="p-4 mt-3">
             <h3 class="text-info mb-4">Actions</h3>
-            <a href="{% url 'beneficiary_update' beneficiary.id %}" class="btn btn-success form-control mb-4">Edit</a>
-            <a class="btn btn-primary form-control mb-4 text-white" href="{% url 'delete_beneficiary' beneficiary.id %}">Delete</a>
+            <a href="{% url 'update_exam' exam.id %}" class="btn btn-success form-control mb-4">Edit</a>
+            <a class="btn btn-primary form-control mb-4 text-white" href="{% url 'delete_exam' exam.id %}">Delete</a>
             <a id="delete"></a>
             {% comment %} <a href="{% url 'provide_ordonance' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Record Ordonace</a> {% endcomment %}
         </div>

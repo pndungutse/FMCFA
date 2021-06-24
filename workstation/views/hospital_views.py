@@ -1,7 +1,7 @@
-import datetime
+from datetime import datetime, timedelta
 from re import template
 import re
-from workstation.models.hospital import Drug, DrugsIssuing, DrugsIssuingForm
+from workstation.models.hospital import Drug, DrugsIssuing, DrugsIssuingForm, Medical_Exam
 import beneficiary
 from django.http import JsonResponse, HttpResponse, request
 from django.shortcuts import render, redirect, get_object_or_404
@@ -21,6 +21,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import user_passes_test
 from django.forms import inlineformset_factory
+from django.db.models import Sum
 import datetime
 
 hos_list_template = 'workstation/hospital_list.html'
@@ -57,6 +58,34 @@ def render_hospital_dashboard(request):
                }
     return render(request, 'workers/hosAgent/hospitalDashboard.html', context)
 
+def hospitalDetail(request, pk):
+    hospital = Hospital.objects.get(id=pk)
+    
+    context = {'hospital':hospital}
+    return render(request, 'hospitalDetail.html', context)
+
+def delete_hospital(request, id):
+    hospital = Hospital.objects.get(pk=id)
+    hospital.delete()
+    sweetify.success(request, success, text='You have successfully deleted hospital', icon='success', timerProgressBar='true', timer=3000)
+    messages.success(request, 'Hospital has been deleted Successfully')
+    return redirect('hospital_list')
+
+def update_hospital(request, pk):
+    user = request.user
+    hospital = Hospital.objects.get(id=pk)
+    form = HospitalForm(instance=hospital)
+    title = 'Update'
+    # form.fields['sector'].queryset = School.objects.filter(sector=sector.id)
+    if request.method == 'POST':
+        form = HospitalForm(request.POST, instance=hospital)
+        if form.is_valid:
+            form.save()
+            sweetify.success(request, success, text='You have successfully updated hospital', icon='success', timerProgressBar='true', timer=3000) 
+            messages.success(request, 'Hospital has been Updated Successfully')
+            return redirect('hospital_list')
+    context = {'form':form, 'title':title}
+    return render(request, 'hospitalForm.html',context)
 def adminReports(request):
     
     male = Beneficiary.objects.filter(gender='MALE').count()
@@ -140,7 +169,7 @@ def provide_medical_exams(request, pk):
     
     medical_exam_auth = Medical_Exam.objects.filter(hospital=hospital, beneficiary=beneficiary)
         
-    context = {'form':form, 'beneficiary':beneficiary, 'medical_exam_auth':medical_exam_auth}
+    context = {'form':form, 'beneficiary':beneficiary, 'medical_exam_auth':medical_exam_auth, 'hospital':hospital}
     return render(request, 'workstation/provide_medical_exams.html', context)
 
 def provide_ordonance(request, pk):
@@ -163,7 +192,7 @@ def provide_ordonance(request, pk):
         
     pending_medecines = beneficiary.ordonance_set.filter(status='PENDING', hospital=hospital)
     print(pending_medecines)
-    context = {'form':form, 'beneficiary':beneficiary,'pending_medecines':pending_medecines}
+    context = {'form':form, 'beneficiary':beneficiary,'pending_medecines':pending_medecines, 'hospital':hospital}
     return render(request, 'workstation/provide_ordonance.html', context)
 
 def print_ordonance(request, pk):
@@ -198,8 +227,11 @@ def print_ordonance(request, pk):
 
 
 def hospitalStatisticalReport(request):
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
     
-    context = {}
+    context = {'hospital':hospital}
     return render(request, 'workstation/hospitalStatisticalReport.html', context)
 
 def benTreatmantHistory(request):
@@ -287,9 +319,9 @@ def medecinesAllowed(request):
         return response
     return HttpResponse*"Not found"
 
-def testSweetify(request):
-    sweetify.success(request, 'You did it', text='Good Job! You successfully showed SweetAlert message', persistent='Hell yeah')
-    return redirect('hospital_list')
+
+
+
     
 
 

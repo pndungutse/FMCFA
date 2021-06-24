@@ -9,19 +9,31 @@
       <a href="{% url 'hos_parmacies' %}" class="btn btn-block btn-primary">View Hospitals & Pharmacies</a>
     </div>
     <div class="col-md-4">
-      <a href="{% url 'medecinesAllowed' %}" class="btn btn-block btn-primary">View Medecines Allowed</a>
+      <a href="{% url 'medecinesAllowed' %}" class="btn btn-block btn-primary">View Allowed Drugs</a>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-md-4">
+      <a href="{% url 'last_week' %}" class="btn btn-block btn-primary">Last week report</a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'last_month' %}" class="btn btn-block btn-primary">Last month report</a>
+    </div>
+    <div class="col-md-4">
+      <a href="{% url 'last_year' %}" class="btn btn-block btn-primary">Last year report</a>
     </div>
   </div>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 <div class="row">
-    <div class="col-md-6">
-
+  <div class="col-md-1"></div>
+    <div class="col-md-10">
         <div class="card bg-white text-black shadow md-4">
         <a href="" class="btn btn-info btn-sm">View in Pdf</a>
           <h5 class="text-center">Gender Beneficiaries' Comparison</h5> <br>
-          <canvas id="myChart" width="500" height="200"></canvas>
+          <canvas id="myChart" width="500" height="170"></canvas>
         </div>
       </div>
 </div>

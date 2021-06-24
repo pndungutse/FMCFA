@@ -1,4 +1,8 @@
-{% extends 'workers/hosAgent/hospitalDashboard.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+{% extends 'workers/hosAgent/hospitalDashboard.html' %}
+{% block tagName %}
+  <strong>{{hospital}}</strong>
+{% endblock %} 
+ {% block title %} pharmacist Detail {% endblock title %} {% block body %}
 {% load crispy_forms_tags %}
 <h3 class="text-info text-uppercase">Medical Exam provided to {{beneficiary}}</h3>
 <div class="row">

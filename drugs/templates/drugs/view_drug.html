@@ -1,20 +1,48 @@
-{% extends 'dashboard_layout.html' %} {% block body%} 
-{% load crispy_forms_tags %}
-
-  <!-- Tab -->
+{% extends 'dashboard_layout.html' %} {% block title %} drug Detail {% endblock title %} {% block body %}
 <div class="row">
-  <div class="card shadow col-md-8">
-    <h2 class="text-uppercase mb-3">Detail of {{ object.drugName }}</h2>
-      <form  method="post">
-<p>Age: {{ object.id }}</p>
-<p>Current Resident: {{ object.unitPrice }}</p>
-<p>Birth Province: {{ object.totalPrice }}</p>
-<p>Birth District: {{ object.quantity }}</p>
-<p>Date: {{ object.date | }}</p>
-    <a href="{% url 'list_drug' %}" class="btn btn-primary">Cancel</a>
-   </form>
+    <div class="col-md-8">
+        <a href="{% url 'list_beneficiary'%}" class="btn btn-primary btn-sm px-5 mb-2">Back</a>
+        <h3 class="text-info text-uppercase">Drug Detail Page</h3>
+        <div class="card shadow-sm p-4 pb-7">
 
-  </div>
+            <h5 class="text-success">Name:</h5>
+            <p class="">{{drug.name}}</p>
+            <h5 class="text-success">Unit Price:</h5>
+            <p class="">{{drug.unitPrice}}</p>
+            <h5 class="text-success">Created Date:</h5>
+            <p>{{drug.date_created}}</p>
+            <h5 class="text-success">Sickness:</h5>
+            <p>{{drug.sickness}}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="p-4 mt-3">
+            <h3 class="text-info mb-4">Actions</h3>
+            <a href="{% url 'update_drug' drug.id %}" class="btn btn-success form-control mb-4">Edit</a>
+            <a class="btn btn-primary form-control mb-4 text-white" href="{% url 'delete_drug' drug.id %}">Delete</a>
+            <a id="delete"></a>
+            {% comment %} <a href="{% url 'provide_ordonance' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Record Ordonace</a> {% endcomment %}
+        </div>
+    </div>
 </div>
+<script>
+    async function showDialog(item) {
+        await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#218838',
+            cancelButtonColor: '#0085CA',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById("delete").href = "/beneficiary/" + item.getAttribute('data-id') + "/delete";
+                document.getElementById("delete").click()
+            }
+        })
+    };
+</script>
 
-{% endblock body %}
+
+{% endblock body %} 

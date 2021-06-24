@@ -134,3 +134,27 @@ def delete_beneficiary(request, id):
     beneficiary.delete()
     sweetify.success(request, success, text='You have successfully deleted pharmacist', icon='success', timerProgressBar='true', timer=3000)
     return redirect('list_beneficiary')
+
+
+def deleteBeneficiary(request, id):
+    beneficiary = Beneficiary.objects.get(pk=id)
+    beneficiary.delete()
+    sweetify.success(request, success, text='You have successfully deleted beneficiary', icon='success', timerProgressBar='true', timer=3000)
+    messages.success(request, 'Beneficiary has been deleted Successfully')
+    return redirect('list_beneficiary')
+
+def update_beneficiary(request, pk):
+    user = request.user
+    beneficiary = Beneficiary.objects.get(id=pk)
+    form = BeneficiaryForm(instance=beneficiary)
+    title = 'Update'
+    # form.fields['sector'].queryset = School.objects.filter(sector=sector.id)
+    if request.method == 'POST':
+        form = BeneficiaryForm(request.POST, instance=beneficiary)
+        if form.is_valid:
+            form.save()
+            sweetify.success(request, success, text='You have successfully updated beneficiary', icon='success', timerProgressBar='true', timer=3000) 
+            messages.success(request, 'Beneficiary has been Updated Successfully')
+            return redirect('list_beneficiary')
+    context = {'form':form, 'title':title}
+    return render(request, 'beneficiaryUpdateForm.html',context)

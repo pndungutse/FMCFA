@@ -7,6 +7,7 @@ from django.forms import Select, TextInput, Textarea
 from beneficiary.models import Beneficiary
 from workstation.models.pharmacy import Pharmacy
 
+
 STATUS = [
     ("PENDING", "PENDING"),
     ("DELIVERED", "DELIVERED"),
@@ -22,7 +23,7 @@ class Drug(models.Model):
         return self.name
     
 
-class drugForm(forms.ModelForm):
+class DrugForm(forms.ModelForm):
     
     class Meta:
         model = Drug
@@ -58,6 +59,12 @@ class Exam(models.Model):
     
     def __str__(self):
         return self.name
+    
+class ExamForm(forms.ModelForm):
+    
+    class Meta:
+        model = Exam
+        fields = '__all__'
 
 
 class Medical_Exam(models.Model):

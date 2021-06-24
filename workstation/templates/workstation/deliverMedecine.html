@@ -1,4 +1,8 @@
-{% extends 'workers/pharmacist/pharmacyDashboard.html' %} {% block title %} pharmacist Detail {% endblock title %} {% block body %}
+{% extends 'workers/pharmacist/pharmacyDashboard.html' %}
+{% block tagName %}
+<strong>{{pharmacy}}</strong>
+{% endblock %}
+ {% block title %} pharmacist Detail {% endblock title %} {% block body %}
 {% load crispy_forms_tags %}
     <h1 class="text-center">Medecine Information</h1>
 <br>

@@ -116,3 +116,6 @@ def delete_pharmacist(request, id):
     pharmacist.delete()
     sweetify.success(request, success, text='You have successfully deleted pharmacist', icon='success', timerProgressBar='true', timer=3000)
     return redirect('pharmacist_list')
+
+
+

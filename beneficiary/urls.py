@@ -6,6 +6,8 @@ urlpatterns = [
     
     path('create', views.BeneficiaryCreateView.as_view(), name='create_beneficiary'),
     path('list', views.BeneficiaryListView.as_view(), name='list_beneficiary'),
+    path('delete/<str:id>', views.deleteBeneficiary, name='delete_beneficiary'),
+    path('update/<str:pk>', views.update_beneficiary, name='beneficiary_update'),
     path('list_beneficiary', views.BeneficiaryListViewHospital.as_view(), name='list_beneficiary_hos'),
     path('list_beneficiary_phar', views.BeneficiaryListViewPharmacy.as_view(), name='list_beneficiary_phar'),
     path('view/<str:pk>', views.beneficiaryDetailView, name='detail_beneficiary'),

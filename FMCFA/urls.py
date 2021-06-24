@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from accounts.views import render_dashboard, render_pharmacy_dashboard
 from workstation.views.hospital_views import render_hospital_dashboard
+from drugs.views import exam_list, exam_create, examDetail, delete_exam, update_exam
+from workers.views.hosAgentsViews import lastWeekAdminPDF, lastMonthAdminPDF, lastYearAdminPDF, lastWeekHosPDF, lastMonthHosPDF, lastYearHosPDF
 
 urlpatterns = [
     path('', admin.site.urls),
@@ -15,6 +17,20 @@ urlpatterns = [
     path('hospitalAgent/', include('workers.urls.hosAgent_urls')),
     path('hospital/', include('workstation.urls.hospital_urls')),
     path('pharmacy/', include('workstation.urls.pharmacy_urls')),
+    
+    path('exam/list', exam_list, name='exam_list'),
+    path('exam/create', exam_create, name='exam_create'),
+    path('exam/update/<str:pk>', update_exam, name='update_exam'),
+    path('exam/delete/<str:id>', delete_exam, name='delete_exam'),
+    path('exam/detail/<str:pk>', examDetail, name='exam_detail'),
+    
+    path('last_week', lastWeekAdminPDF, name='last_week'),
+    path('last_month', lastMonthAdminPDF, name='last_month'),
+    path('last_year', lastYearAdminPDF, name='last_year'),
+    
+    path('last_week_hos', lastWeekHosPDF, name='lastWeekHosPDF'),
+    path('last_month_hos', lastMonthHosPDF, name='lastMonthHosPDF'),
+    path('last_year_hos',lastYearHosPDF, name='lastYearHosPDF'),
     
     
 ]

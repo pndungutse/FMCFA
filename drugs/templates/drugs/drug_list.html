@@ -1,0 +1,45 @@
+{% extends 'dashboard_layout.html' %} {% block title %}Beneficiary{% endblock %} {% block body %}
+
+<div class="content-dashboard">
+    <h3 class="text-uppercase text-info">list of Drugs</h3>
+    {% if user.is_superuser %}
+    <a class="btn btn-primary mt-1 mb-1" href="{% url 'drug_create' %}" style="text-decoration: none;">Add
+        drug</a>
+        {% endif %}
+    <div class="row">
+        <div class="col-md-12 card shadow-sm  pb-7 p-4">
+            {% include 'generic/filter_form.html' %}
+            <table class="table table-hover">
+                <caption></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Drug Name</th>
+                        <th scope="col">Unit Price</th>
+                        <th scope="col">Sickness</th>
+                        <th scope="col">Created Date</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for new in drugs %}
+                    <tr>
+                        <td>{{ new.name|slice:"20" }}{% if new.name|length > 20 %}...{% endif %}
+                        <td>{{ new.unitPrice|slice:"20" }}{% if new.unitPrice|length > 20 %}...{% endif %}
+                        </td>
+                        <td>{{ new.sickness|slice:"20" }}{% if new.sickness|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.date_created|slice:"20" }}{% if new.date_created|length > 20 %}...{% endif %}</td>
+                        <td>
+                            <a href="{% url 'drug_detail' new.id %}" class="btn btn-sm btn-primary">View</a>
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% include 'generic/paginator.html' %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

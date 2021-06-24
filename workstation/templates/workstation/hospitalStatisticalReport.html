@@ -1,10 +1,30 @@
-{% extends 'workers/hosAgent/hospitalDashboard.html' %} {% block title %}reports{% endblock %} {% block body %}
+{% extends 'workers/hosAgent/hospitalDashboard.html' %}
+{% block tagName %}
+  <strong>{{hospital}}</strong>
+{% endblock %} 
+{% block title %}reports{% endblock %}
+ {% block body %}
 
 <div class="row">
-    <div class="col-md-4">
-        <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal">Beneficiary Treatment history</button>
-    </div>
+  <div class="col-md-4">
+    <a href="{% url 'lastWeekHosPDF' %}" class="btn btn-block btn-primary">Last Week Report</a>
+  </div>
+  <div class="col-md-4">
+    <a href="{% url 'lastMonthHosPDF' %}" class="btn btn-block btn-primary">Last Month Report</a>
+  </div>
+  <div class="col-md-4">
+    <a href="{% url 'lastYearHosPDF' %}" class="btn btn-block btn-primary">Last Year Report</a>
+  </div>
+    
 </div>
+
+<br><br>
+<div class="row">
+  <div class="col-md-4">
+      <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal">Beneficiary Treatment history</button>
+  </div>
+</div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
     <div class="modal-dialog">

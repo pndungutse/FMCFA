@@ -1,3 +1,7 @@
+from datetime import datetime, timedelta
+from workstation.utils import render_to_pdf
+from django.template.loader import get_template
+from django.http import JsonResponse, HttpResponse, request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView
 import sweetify
@@ -8,6 +12,9 @@ from django.contrib.auth.views import login_required
 from django.utils.decorators import method_decorator
 from workers.models.hosAgent import HospitalAgent, HospitalAgentForm, HospitalAgentRegistrationForm
 from workers.filters.hosAgent_filter import HospitalAgentFilter
+from workstation.models.hospital import Medical_Exam, DrugsIssuing, Hospital
+from django.db.models import Sum
+
 
 
 # Create your views here.
@@ -117,3 +124,156 @@ def delete_hospitalAgent(request, id):
     hosAgent.delete()
     sweetify.success(request, success, text='You have successfully deleted Hospital Agent', icon='success', timerProgressBar='true', timer=3000)
     return redirect('hospitalAgent_list')
+
+def lastWeekAdminPDF(request):
+    template = get_template('lastWeekReport.html')
+    user = request.user
+    last_week = datetime.today() - timedelta(days=7)
+    
+    examsLastWeek = Medical_Exam.objects.filter(date_created__gte=last_week)
+    examsLastWeekTotalSum = Medical_Exam.objects.filter(date_created__gte=last_week).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    drugsLastWeek = DrugsIssuing.objects.filter(date_created__gte=last_week)
+    drugsLastWeekTotalSum = DrugsIssuing.objects.filter(date_created__gte=last_week).aggregate(Sum('totalPrice')).get('totalPrice__sum')
+    context = {'examsLastWeek':examsLastWeek, 'user':user, 'examsLastWeekTotalSum':examsLastWeekTotalSum,
+               'drugsLastWeek':drugsLastWeek, 'drugsLastWeekTotalSum':drugsLastWeekTotalSum}
+    html = template.render(context)
+    pdf= render_to_pdf('lastWeekReport.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Last Week Report"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
+
+def lastMonthAdminPDF(request):
+    template = get_template('lastMonthReport.html')
+    user = request.user
+    last_month = datetime.today() - timedelta(days=30)
+    
+    examsLastMonth = Medical_Exam.objects.filter(date_created__gte=last_month)
+    examsLastMonthTotalSum = Medical_Exam.objects.filter(date_created__gte=last_month).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    drugsLastMonth = DrugsIssuing.objects.filter(date_created__gte=last_month)
+    drugsLastMonthTotalSum = DrugsIssuing.objects.filter(date_created__gte=last_month).aggregate(Sum('totalPrice')).get('totalPrice__sum')
+    context = {'examsLastMonth':examsLastMonth, 'user':user, 'examsLastMonthTotalSum':examsLastMonthTotalSum,
+               'drugsLastMonth':drugsLastMonth, 'drugsLastMonthTotalSum':drugsLastMonthTotalSum}
+    html = template.render(context)
+    pdf= render_to_pdf('lastMonthReport.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Last Month Report"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
+
+def lastYearAdminPDF(request):
+    template = get_template('lastYearReport.html')
+    user = request.user
+    last_year = datetime.today() - timedelta(days=365)
+    
+    examsLastYear = Medical_Exam.objects.filter(date_created__gte=last_year)
+    examsLastYearTotalSum = Medical_Exam.objects.filter(date_created__gte=last_year).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    drugsLastYear = DrugsIssuing.objects.filter(date_created__gte=last_year)
+    drugsLastYearTotalSum = DrugsIssuing.objects.filter(date_created__gte=last_year).aggregate(Sum('totalPrice')).get('totalPrice__sum')
+    context = {'examsLastYear':examsLastYear, 'user':user, 'examsLastYearTotalSum':examsLastYearTotalSum,
+               'drugsLastYear':drugsLastYear, 'drugsLastYearTotalSum':drugsLastYearTotalSum}
+    html = template.render(context)
+    pdf= render_to_pdf('lastYearReport.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Last Year Report"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
+
+
+
+def lastWeekHosPDF(request):
+    template = get_template('lastWeekReportHos.html')
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
+    last_week = datetime.today() - timedelta(days=7)
+    
+    examsLastWeek = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=last_week)
+    examsLastWeekTotalSum = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=last_week).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    context = {'examsLastWeek':examsLastWeek, 'user':user, 'examsLastWeekTotalSum':examsLastWeekTotalSum,
+               'user':user, 'hospital':hospital}
+    html = template.render(context)
+    pdf= render_to_pdf('lastWeekReportHos.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Last Week Report for %s" %(hospital)
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
+
+def lastMonthHosPDF(request):
+    template = get_template('lastMonthReportHos.html')
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
+    last_month = datetime.today() - timedelta(days=30)
+    
+    examsLastMonth = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=last_month)
+    examsLastMonthTotalSum = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=last_month).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    context = {'examsLastMonth':examsLastMonth, 'user':user, 'examsLastMonthTotalSum':examsLastMonthTotalSum,
+               'user':user, 'hospital':hospital}
+    html = template.render(context)
+    pdf= render_to_pdf('lastMonthReportHos.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Last Month Report for %s" %(hospital)
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
+
+
+def lastYearHosPDF(request):
+    template = get_template('lastYearReportHos.html')
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
+    last_year = datetime.today() - timedelta(days=365)
+    
+    examsLastYear = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=last_year)
+    examsLastYearTotalSum = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=last_year).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    context = {'examsLastYear':examsLastYear, 'user':user, 'examsLastYearTotalSum':examsLastYearTotalSum,
+               'user':user, 'hospital':hospital}
+    html = template.render(context)
+    pdf= render_to_pdf('lastYearReportHos.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Last Year Report for %s" %(hospital)
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"

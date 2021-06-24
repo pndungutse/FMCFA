@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>last week report</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header_content"> 
+    User: <strong>{{user}}</strong><br><br>
+    Hospital: <strong>{{hospital}}</strong><br><br>
+    Address: <strong>{{hospital.address}}</strong><br><br>
+
+    </div>
+    <br>
+
+    <div id="content_frame"> 
+    <h1 style="text-align: center;">Exam Provided by {{hospital}} in 7 Days Ago</h1> <br>
+
+    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 35px;">Hospital</th>
+                    <th style="height: 35px;">Beneficiary </th>
+                    <th style="height: 35px; margin-right: 35px;">Medical Exam</th>
+                    <th style="height: 35px;">Exam Price </th>
+                    <th style="height: 35px;">Date Provided </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for last_week in examsLastWeek %}
+                <tr>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_week.hospital }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_week.beneficiary }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_week.exam }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_week.exam.price }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_week.date_created }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+    <br><br>
+    <strong>Total Cost: {{examsLastWeekTotalSum}}</strong>  <br><br>
+  <br><br><br><br><br>
+    <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+    <p style="margin-left: 550px;"><strong>{{hospital}}</strong></p>
+
+    <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
+    
+</body>
+</html>

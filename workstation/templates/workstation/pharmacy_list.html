@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                 {% for new in page_obj %}
-                    <tr style='cursor: pointer;' onclick="window.location='{% url 'detail_beneficiary' pk=new.id %}';">
+                    <tr style='cursor: pointer;' onclick="window.location='{% url 'pharmacy_detail' pk=new.id %}';">
                         <td>{{ new.name|slice:"20" }}{% if new.name|length > 20 %}...{% endif %}
                         </td>
                         

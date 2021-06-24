@@ -1,0 +1,39 @@
+{% extends 'dashboard_layout.html' %} {% block title %}add medical exam{% endblock %} {% block body %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+<div class="content-dashboard">
+  <div class="row card shadow-sm mt-4 pb-4 p-4 ">
+    <div style="margin-left: 80px;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h3 class="mb-4 text-centered text-info text-uppercase">Fill this form to {{title}} Medical Exam</h3>
+      {{ form.non_field_errors}}{{form.media}}
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.name.id_for_label }}">Exam Name </label><span style="color:red;">*</span> <br>
+              {{form.name}} {% for error in form.name.errors %}
+              <span class="text-danger">{{error}}</span> {% endfor %}
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="{{ form.price.id_for_label }}">Price</label><span style="color:red;">*</span> <br>
+              {{form.price}} {% for error in form.price.errors %}
+              <p class="text-danger"> {{error}}</p>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <br><br>
+        <a href="javascript:history.go(-1)" class="btn btn-outline-primary mt-2 text-size-sm px-5">Cancel</a>
+        <input type="submit" value="{{title}}" class="btn btn-primary mt-2 px-5">
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
