@@ -319,9 +319,46 @@ def medecinesAllowed(request):
         return response
     return HttpResponse*"Not found"
 
-
-
-
+def comapare2MonthsHos(request):
+    template = get_template('compare2MonthsHos.html')
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
+    try:
+        year = request.GET.get('year')
+        month1 = request.GET.get('month1')
+        month2 = request.GET.get('month2')
+    except:
+        year = None
+        month1 = None
+        month2 = None
+        
+    if year:
+        yearSearched = year
+        if month1:
+            month1Searched = month1
+            if month2:
+                month2Searched = month2
+                medical_exams_month1 = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month1Searched)
+                medical_exams_month1Sum = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month1Searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+                
+                mdedical_exams_month2 = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month2Searched)
+                mdedical_exams_month2Sum = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month2Searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+            
+    context = {'medical_exams_month1':medical_exams_month1, 'mdedical_exams_month2':mdedical_exams_month2, 'user':user, 'hospital':hospital,
+               'medical_exams_month1Sum':medical_exams_month1Sum,'month1Selected': month1Searched, 'month2Searched':month2Searched,
+               'mdedical_exams_month2Sum':mdedical_exams_month2Sum}
+    pdf= render_to_pdf('compare2MonthsHos.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Medical Exam Provided Comparison"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
     
 
 

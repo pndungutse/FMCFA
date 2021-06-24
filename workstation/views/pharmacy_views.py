@@ -243,3 +243,44 @@ def lastYearPharPDF(request):
         response['Content-Disposition'] = content
         return response
     return HttpResponse*"Not found"
+
+def comapare2MonthsPhar(request):
+    template = get_template('compare2MonthsPhar.html')
+    user = request.user
+    pharmacist = Pharmacist.objects.get(user=user)
+    pharmacy = Pharmacy.objects.get(agent=pharmacist)
+    try:
+        year = request.GET.get('year')
+        month1 = request.GET.get('month1')
+        month2 = request.GET.get('month2')
+    except:
+        year = None
+        month1 = None
+        month2 = None
+        
+    if year:
+        yearSearched = year
+        if month1:
+            month1Searched = month1
+            if month2:
+                month2Searched = month2
+                drugs_month1 = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month1Searched)
+                drugs_month1Sum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month1Searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
+                
+                drugs_month2 = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month2Searched)
+                drugs_month2Sum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month2Searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
+            
+    context = {'drugs_month1':drugs_month1, 'drugs_month2':drugs_month2, 'user':user, 'pharmacy':pharmacy,
+               'drugs_month1Sum':drugs_month1Sum,'month1Selected': month1Searched, 'month2Searched':month2Searched,
+               'drugs_month2Sum':drugs_month2Sum}
+    pdf= render_to_pdf('compare2MonthsPhar.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Medical Exam Provided Comparison"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"

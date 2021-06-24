@@ -21,5 +21,7 @@ urlpatterns = [
     path('hos_parmacies', hos_parmaciesPDF, name='hos_parmacies'),
     path('medecinesAllowed', medecinesAllowed, name='medecinesAllowed'),
     path('medical_exams/<str:pk>', provide_medical_exams, name='medical_exams'),
+    
+    path('comapare2MonthsHos', comapare2MonthsHos, name='comapare2MonthsHos'),
 
 ]

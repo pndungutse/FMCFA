@@ -23,6 +23,9 @@
   <div class="col-md-4">
       <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal">Beneficiary Treatment history</button>
   </div>
+  <div class="col-md-4">
+      <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal2">Compare Two Months</button>
+  </div>
 </div>
 
 
@@ -47,6 +50,78 @@
               </div>
             </div>
             <button class="btn btn-success btn-sm">Generate Report</button>
+          </form>
+        </div>
+      </div>
+  
+      {% comment %} <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> {% endcomment %}
+  
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Generate report based on choices</h4>
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <form role="search" action='comapare2MonthsHos'>
+          
+                <div class="form-group">
+                  <label for="year">Enter Year:</label>
+                  <input class="form-control" type="text" name="year" placeholder="Enter Year" required>
+                </div>     
+    
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="month1">Month 1:</label>
+                  <select name="month1" class="form-control">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="month2">Month 1:</label>
+                  <select name="month2" class="form-control">
+                    <option value="1">January</option>
+                    <option value="2">February</option>
+                    <option value="3">March</option>
+                    <option value="4">April</option>
+                    <option value="5">May</option>
+                    <option value="6">June</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm float-right">Generate Report</button>
           </form>
         </div>
       </div>

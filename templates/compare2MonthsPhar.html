@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drugs comparision for months</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content"> 
+    User: <strong>{{user}}</strong><br><br>
+    Pharmacy: <strong>{{pharmacy}}</strong><br><br>
+    Address: <strong>{{pharmacy.address}}</strong><br><br>
+    </div>
+    <br>
+
+    <div id="content_frame"> 
+    <h1 style="text-align: center;">Drugs Provided by {{pharmacy}} for the month of {{month1Selected}}</h1> <br>
+
+    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 35px;">Pharmacy</th>
+                    <th style="height: 35px;">Beneficiary </th>
+                    <th style="height: 35px; margin-right: 35px;">Drug Name</th>
+                    <th style="height: 35px; margin-right: 35px;">Drug Quantity</th>
+                    <th style="height: 35px;">Total Price </th>
+                    <th style="height: 35px;">Date Provided </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for drug in drugs_month1 %}
+                <tr>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.pharmacy }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.beneficiary }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.drug }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.quantity }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.totalPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.date_created }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+        <br><br>
+        <strong>Total Costs for the month of {{month1Selected}}: {{drugs_month1Sum}} Rwfs</strong> 
+<br><br><br>
+<h1 style="text-align: center;">Exam Provided by {{pharmacy}} for the month of {{month2Searched}}</h1> <br>
+
+    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th style="height: 35px;">Pharmacy</th>
+                    <th style="height: 35px;">Beneficiary </th>
+                    <th style="height: 35px; margin-right: 35px;">Drug Name</th>
+                    <th style="height: 35px; margin-right: 35px;">Drug Quantity</th>
+                    <th style="height: 35px;">Total Price </th>
+                    <th style="height: 35px;">Date Provided </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for drug in drugs_month2 %}
+                <tr>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.pharmacy }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.beneficiary }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.drug }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.quantity }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.totalPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.date_created }}</td>
+                </tr>
+            {% endfor %}
+            
+            </tbody>
+        </table>
+        <br><br>
+        <strong>Total Costs for the month of {{month2Selected}}: {{drugs_month2Sum}}</strong> 
+
+    </div>
+</body>
+</html>

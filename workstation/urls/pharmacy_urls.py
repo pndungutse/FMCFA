@@ -1,5 +1,5 @@
 from django.urls import path
-from workstation.views.pharmacy_views import lastYearPharPDF,lastMonthPharPDF,lastWeekPharPDF,update_pharmacy,delete_pharmacy,pharmacyDetail,pharmacyList, PhamacyCreateView, pharmacyStatisticalReport, medecineProvision,print_ordonance_phar, saveDrugIssue, deliverMedecine
+from workstation.views.pharmacy_views import comapare2MonthsPhar, lastYearPharPDF,lastMonthPharPDF,lastWeekPharPDF,update_pharmacy,delete_pharmacy,pharmacyDetail,pharmacyList, PhamacyCreateView, pharmacyStatisticalReport, medecineProvision,print_ordonance_phar, saveDrugIssue, deliverMedecine
 
 urlpatterns = [
     path('create', PhamacyCreateView.as_view(), name='create_pharmacy'),
@@ -20,5 +20,7 @@ urlpatterns = [
     path('last_week_phar', lastWeekPharPDF, name='lastWeekPharPDF'),
     path('last_month_phar', lastMonthPharPDF, name='lastMonthPharPDF'),
     path('last_year_phar', lastYearPharPDF, name='lastYearPharPDF'),
+    
+    path('comapare2MonthsPhar', comapare2MonthsPhar, name='comapare2MonthsPhar'),
 
 ]
