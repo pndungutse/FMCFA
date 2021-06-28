@@ -44,6 +44,7 @@
                     <th style="height: 35px; margin-right: 35px;">Drug Name</th>
                     <th style="height: 35px; margin-right: 35px;">Drug Quantity</th>
                     <th style="height: 35px;">Exam Price </th>
+                    <th style="height: 35px;">Total Price </th>
                     <th style="height: 35px;">Date Provided </th>
                 </tr>
             </thead>
@@ -53,7 +54,9 @@
                     <td style="height: 35px; padding-left: 10px;">{{ last_year.pharmacy }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_year.beneficiary }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_year.drug }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_year.quantity }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_year.drug.unitPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_year.totalPrice }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_year.date_created }}</td>
                 </tr>
             {% endfor %}

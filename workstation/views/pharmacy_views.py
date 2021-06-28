@@ -176,7 +176,7 @@ def lastWeekPharPDF(request):
     last_week = datetime.today() - timedelta(days=7)
     
     drugsLastWeek = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_week)
-    drugsLastWeekTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_week).aggregate(Sum('drug__unitPrice')).get('drug__unitPrice__sum', 0.00)
+    drugsLastWeekTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_week).aggregate(Sum('totalPrice')).get('totalPrice', 0.00)
     
     context = {'drugsLastWeek':drugsLastWeek, 'user':user, 'drugsLastWeekTotalSum':drugsLastWeekTotalSum,
                'user':user, 'pharmacy':pharmacy}
@@ -201,7 +201,7 @@ def lastMonthPharPDF(request):
     last_month = datetime.today() - timedelta(days=30)
     
     drugsLastMonth = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_month)
-    drugsLastMonthTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_month).aggregate(Sum('drug__unitPrice')).get('drug__unitPrice__sum', 0.00)
+    drugsLastMonthTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_month).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
     
     context = {'drugsLastMonth':drugsLastMonth, 'user':user, 'drugsLastMonthTotalSum':drugsLastMonthTotalSum,
                'user':user, 'pharmacy':pharmacy}
@@ -227,7 +227,7 @@ def lastYearPharPDF(request):
     last_year = datetime.today() - timedelta(days=365)
     
     drugsLastYear = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_year)
-    drugsLastYearTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_year).aggregate(Sum('drug__unitPrice')).get('drug__unitPrice__sum', 0.00)
+    drugsLastYearTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=last_year).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
     
     context = {'drugsLastYear':drugsLastYear, 'user':user, 'drugsLastYearTotalSum':drugsLastYearTotalSum,
                'user':user, 'pharmacy':pharmacy}

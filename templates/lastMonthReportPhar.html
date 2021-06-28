@@ -44,6 +44,7 @@
                     <th style="height: 35px; margin-right: 35px;">Drug Name</th>
                     <th style="height: 35px; margin-right: 35px;">Drug Quantity</th>
                     <th style="height: 35px;">Exam Price </th>
+                    <th style="height: 35px;">Total Exam Price </th>
                     <th style="height: 35px;">Date Provided </th>
                 </tr>
             </thead>
@@ -53,11 +54,12 @@
                     <td style="height: 35px; padding-left: 10px;">{{ last_month.pharmacy }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_month.beneficiary }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_month.drug }}</td>
+                    <td style="height: 35px; padding-left: 25px;">{{ last_month.quantity }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_month.drug.unitPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ last_month.totalPrice }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ last_month.date_created }}</td>
                 </tr>
             {% endfor %}
-            
             </tbody>
         </table>
     </div>

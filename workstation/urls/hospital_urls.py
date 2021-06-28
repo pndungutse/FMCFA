@@ -2,7 +2,6 @@ from django.urls import path
 from workstation.views.hospital_views import *
 
 urlpatterns = [
-    path('reports', adminReports, name='adminReports'),
     path('create', HospitalCreateView.as_view(), name='create_hospital'),
     path('list', hospitalList, name='hospital_list'),
     path('detail/<str:pk>', hospitalDetail, name='hospitalDetail'),

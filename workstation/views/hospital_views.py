@@ -248,6 +248,7 @@ def benTreatmantHistory(request):
     if ben_code:
         ben_searched = ben_code
         beneficiary = Beneficiary.objects.get(ben_code=ben_searched)
+        print(beneficiary)
         passes = Pass.objects.filter(beneficiary=beneficiary, hospital=hospital)
     
     context = {'passes':passes,'beneficiary':beneficiary,'hospital':hospital,'user':user}

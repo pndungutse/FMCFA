@@ -15,13 +15,13 @@
   <br><br>
   <div class="row">
     <div class="col-md-4">
-      <a href="{% url 'last_week' %}" class="btn btn-block btn-primary">Last week report</a>
+      <a href="{% url 'last_week' %}" class="btn btn-block btn-primary">Weekly report</a>
     </div>
     <div class="col-md-4">
-      <a href="{% url 'last_month' %}" class="btn btn-block btn-primary">Last month report</a>
+      <a href="{% url 'last_month' %}" class="btn btn-block btn-primary">Monthly report</a>
     </div>
     <div class="col-md-4">
-      <a href="{% url 'last_year' %}" class="btn btn-block btn-primary">Last year report</a>
+      <a href="{% url 'last_year' %}" class="btn btn-block btn-primary">Yearly report</a>
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
   <div class="col-md-1"></div>
     <div class="col-md-10">
         <div class="card bg-white text-black shadow md-4">
-        <a href="" class="btn btn-info btn-sm">View in Pdf</a>
+        {% comment %} <a href="" class="btn btn-info btn-sm">View in Pdf</a> {% endcomment %}
           <h5 class="text-center">Gender Beneficiaries' Comparison</h5> <br>
           <canvas id="myChart" width="500" height="170"></canvas>
         </div>
