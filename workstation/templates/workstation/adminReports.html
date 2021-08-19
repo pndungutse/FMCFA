@@ -48,7 +48,7 @@
           type: 'doughnut',
           data: {
             // labels: [{% for school in qs %}'{{ school.sector }}',{% endfor %}],
-            labels: ['Male Students ', 'Female Students'],
+            labels: ['Male Beneficiaries ', 'Female Beneficiaries'],
             datasets: [{
               label: '# of Students with the following range of numbers',
     data: [(({{male}} * 100)/sum).toFixed(1), (({{female}} * 100)/sum).toFixed(1),],
