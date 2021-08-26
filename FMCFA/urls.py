@@ -5,6 +5,9 @@ from workstation.views.hospital_views import render_hospital_dashboard, adminRep
 from drugs.views import exam_list, exam_create, examDetail, delete_exam, update_exam
 from workers.views.hosAgentsViews import lastWeekAdminPDF, lastMonthAdminPDF, lastYearAdminPDF, lastWeekHosPDF, lastMonthHosPDF, lastYearHosPDF
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('', admin.site.urls),
     path('dashboard/', render_dashboard, name='dashboard'),
@@ -35,4 +38,5 @@ urlpatterns = [
     
     
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
  
