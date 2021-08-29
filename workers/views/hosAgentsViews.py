@@ -200,6 +200,43 @@ def lastYearAdminPDF(request):
         return response
     return HttpResponse*"Not found"
 
+def dateSearchedAdminReport(request):
+    template = get_template('searchedDateReportAdmin.html')
+    user = request.user
+    try:
+        date_search = request.GET.get('date_search')
+    except:
+        date_search = None
+        
+    if date_search:
+        date_searched = date_search
+        todaysDate = datetime.today()
+        # print(date_searched)
+        # print(todaysDate.date())
+    # return render(request, 'test.html')
+    
+        # last_year = datetime.today() - timedelta(days=365)
+    
+    examsDateSearched = Medical_Exam.objects.filter(date_created__gte=date_searched)
+    examsDateSearchedTotalSum = Medical_Exam.objects.filter(date_created__gte=date_searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    
+    drugsDateSearched = DrugsIssuing.objects.filter(date_created__gte=date_searched)
+    drugsDateSearchedTotalSum = DrugsIssuing.objects.filter(date_created__gte=date_searched).aggregate(Sum('totalPrice')).get('totalPrice__sum')
+    context = {'examsDateSearched':examsDateSearched, 'user':user, 'examsDateSearchedTotalSum':examsDateSearchedTotalSum,
+               'drugsDateSearched':drugsDateSearched, 'drugsDateSearchedTotalSum':drugsDateSearchedTotalSum, 'date_searched':date_searched}
+    html = template.render(context)
+    pdf= render_to_pdf('searchedDateReportAdmin.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Date Searched Report"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
+
 
 
 def lastWeekHosPDF(request):
@@ -277,3 +314,44 @@ def lastYearHosPDF(request):
         response['Content-Disposition'] = content
         return response
     return HttpResponse*"Not found"
+
+def dateHosPDF(request):
+    template = get_template('searchedDateReportHos.html')
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
+    
+    try:
+        date_search = request.GET.get('date_search')
+    except:
+        date_search = None
+        
+    if date_search:
+        date_searched = date_search
+        todaysDate = datetime.today()
+        # print(date_searched)
+        # print(todaysDate.date())
+    # return render(request, 'test.html')
+    
+        # last_year = datetime.today() - timedelta(days=365)
+        
+        examsDateSearched = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=date_searched)
+        examsDateSearchedTotalSum = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=date_searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+        
+        print(examsDateSearched)
+        
+        # return render(request, 'test.html')
+        context = {'examsDateSearched':examsDateSearched, 'user':user, 'examsDateSearchedTotalSum':examsDateSearchedTotalSum,
+                'user':user, 'hospital':hospital, 'date_searched':date_searched}
+        html = template.render(context)
+        pdf= render_to_pdf('searchedDateReportHos.html', context)
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            file_name = "Date Searched Report for %s" %(hospital)
+            content = "inline; filename='%s'" %(file_name)
+            download = request.GET.get("download")
+            if download:
+                content = "attachment; filename='%s'" %(file_name)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse*"Not found"
