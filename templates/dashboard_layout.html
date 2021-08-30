@@ -75,6 +75,9 @@
                 <li class="{% if 'exam' in request.path %} active {% endif %}">
                     <a href="{% url 'exam_list' %}"><span class="feather icon-link"></span> Medical Exams</a>
                 </li>
+                <li class="{% if 'suggestions' in request.path %} active {% endif %}">
+                    <a href="{% url 'suggestions' %}"><span class="feather icon-link"></span> View Suggestions</a>
+                </li>
                 <li class="{% if 'reports' in request.path %} active {% endif %}">
                     <a href="{% url 'adminReports' %}"><span class="feather icon-link"></span> Reports</a>
                 </li>

@@ -143,3 +143,33 @@ class DrugsIssuingForm(forms.ModelForm):
             'drug': 'Drug',
             'quantity': 'Quantity',
         }
+
+class Suggestion(models.Model):
+    hospital = models.ForeignKey(Hospital,null=True, on_delete=models.CASCADE)
+    beneficiary = models.ForeignKey(Beneficiary, null=True, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50, null=True, blank=True)
+    description = models.TextField(null=True, blank=True, max_length=255)
+    suggestion = models.TextField(null=True, blank=True, max_length=255)
+    
+    def __str__(self):
+        return self.title
+    
+class SuggestionForm(forms.ModelForm):
+    class Meta:
+        model = Suggestion
+        fields = ('title', 'description', 'suggestion')
+        widgets = {
+            'title': TextInput(attrs={'class': 'form-control', 'placeholder': "Enter Suggestion Title"}),
+            'description': Textarea(attrs={'class': 'form-control', 'placeholder': "Enter Suggestion Description"}),
+            'suggestion': Textarea(attrs={'class': 'form-control', 'placeholder': "Enter Suggestion"}),
+
+
+        }
+        labels = {
+            'title': 'Title',
+            'description': 'Description',
+            'suggestion': 'Suggestion'
+        }
+        
+    
+

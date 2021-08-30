@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from accounts.views import render_dashboard, render_pharmacy_dashboard
+from accounts.views import render_dashboard, render_pharmacy_dashboard, viewSuggestions
 from workstation.views.hospital_views import render_hospital_dashboard, adminReports
 from drugs.views import exam_list, exam_create, examDetail, delete_exam, update_exam
 from workers.views.hosAgentsViews import dateSearchedAdminReport, dateHosPDF, lastWeekAdminPDF, lastMonthAdminPDF, lastYearAdminPDF, lastWeekHosPDF, lastMonthHosPDF, lastYearHosPDF
@@ -13,6 +13,7 @@ urlpatterns = [
     path('dashboard/', render_dashboard, name='dashboard'),
     path('hos_dashboard/', render_hospital_dashboard, name='hos_dashboard'),
     path('phar_dashboard/', render_pharmacy_dashboard, name='phar_dashboard'),
+    path('suggestions/', viewSuggestions, name='suggestions'),
     path('accounts/', include('accounts.urls')),
     path('beneficiary/', include('beneficiary.urls')),
     path('drug/', include('drugs.urls')),

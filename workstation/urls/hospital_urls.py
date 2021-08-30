@@ -22,5 +22,6 @@ urlpatterns = [
     path('medical_exams/<str:pk>', provide_medical_exams, name='medical_exams'),
     
     path('comapare2MonthsHos', comapare2MonthsHos, name='comapare2MonthsHos'),
+    path('addSuggestion/<str:pk>', addSuggestion, name='addSuggestion'),
 
 ]

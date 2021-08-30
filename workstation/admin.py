@@ -1,5 +1,5 @@
 from django.contrib import admin
-from workstation.models.hospital import Hospital, Pass, Ordonance, Exam, Medical_Exam, Drug, DrugsIssuing
+from workstation.models.hospital import Hospital, Pass, Ordonance, Exam, Medical_Exam, Drug, DrugsIssuing, Suggestion, SuggestionForm
 from workstation.models.pharmacy import Pharmacy
 
 # Register your models here.
@@ -11,5 +11,7 @@ admin.site.register(Exam)
 admin.site.register(Medical_Exam)
 admin.site.register(Drug)
 admin.site.register(DrugsIssuing)
+admin.site.register(Suggestion)
+
 
 

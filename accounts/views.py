@@ -1,4 +1,4 @@
-from workstation.models.hospital import Drug, DrugsIssuing
+from workstation.models.hospital import Drug, DrugsIssuing, Suggestion
 from beneficiary.models import Beneficiary
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
@@ -139,3 +139,8 @@ def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return redirect('login')
+    
+def viewSuggestions(request):
+    suggestions = Suggestion.objects.all()
+    context = {'suggestions': suggestions}
+    return render(request, 'suggestions.html', context)

@@ -6,7 +6,7 @@ import beneficiary
 from django.http import JsonResponse, HttpResponse, request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView
-from workstation.models.hospital import Hospital, Pass, HospitalForm, Ordonance, OrdonanceForm, Medical_ExamForm, Medical_Exam
+from workstation.models.hospital import Hospital, Pass, HospitalForm, Ordonance, OrdonanceForm, Medical_ExamForm, Medical_Exam, Suggestion, SuggestionForm
 from workstation.models.pharmacy import Pharmacy, Pharmacist
 from workers.models.hosAgent import HospitalAgent
 from beneficiary.models import Beneficiary
@@ -360,6 +360,33 @@ def comapare2MonthsHos(request):
         response['Content-Disposition'] = content
         return response
     return HttpResponse*"Not found"
+    
+    
+def addSuggestion(request, pk):
+    user = request.user
+    hospital_agent = HospitalAgent.objects.get(user=user)
+    hospital = Hospital.objects.get(agent=hospital_agent)
+    
+    beneficiary = Beneficiary.objects.get(id=pk)
+    
+    title = 'Add'
+    
+    form = SuggestionForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid:
+            suggestion = form.save(commit=False)
+            suggestion.beneficiary = beneficiary
+            suggestion.hospital = hospital
+            suggestion.save()
+            
+            sweetify.success(request, success, text='You have successfully sent your suggestion', icon='success', timerProgressBar='true', timer=3000) 
+            # messages.success(request, 'Hospital has been Updated Successfully')
+            return redirect('hos_dashboard')
+    context = {'form':form, 'title':title}
+    return render(request, 'suggestionForm.html',context)
+    
+    
+    
     
 
 
