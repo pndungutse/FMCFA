@@ -24,7 +24,48 @@
       <a href="{% url 'last_year' %}" class="btn btn-block btn-primary">Yearly report</a>
     </div>
   </div>
+  <br><br>
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal1">Date Specific Report</button>
+    </div>
+    
 </div>
+
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Generate report based on date</h4>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form role="search" action='{% url 'dateSearched' %}'>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input class="form-control" type="date" name="date_search" required>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-success btn-sm">Generate Report</button>
+        </form>
+      </div>
+    </div>
+
+    {% comment %} <!-- Modal footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div> {% endcomment %}
+
+  </div>
+</div>
+
 
 <br><br><br><br><br><br>
 <div class="row">

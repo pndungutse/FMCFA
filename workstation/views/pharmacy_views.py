@@ -284,3 +284,39 @@ def comapare2MonthsPhar(request):
         response['Content-Disposition'] = content
         return response
     return HttpResponse*"Not found"
+
+def datePharPDF(request):
+    template = get_template('searchedDateReportPhar.html')
+    user = request.user
+    pharmacist = Pharmacist.objects.get(user=user)
+    pharmacy = Pharmacy.objects.get(agent=pharmacist)
+    # last_year = datetime.today() - timedelta(days=365)
+    
+    try:
+        date_search = request.GET.get('date_search')
+    except:
+        date_search = None
+        
+    if date_search:
+        date_searched = date_search
+        todaysDate = datetime.today()
+        # print(date_searched)
+        # print(todaysDate.date())
+    
+    drugsDateSearchedYear = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=date_searched)
+    drugsDateSearchedTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=date_searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
+    
+    context = {'drugsDateSearchedYear':drugsDateSearchedYear, 'user':user, 'drugsDateSearchedTotalSum':drugsDateSearchedTotalSum,
+               'user':user, 'pharmacy':pharmacy, 'date_searched':date_searched}
+    html = template.render(context)
+    pdf= render_to_pdf('searchedDateReportPhar.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "Date Searched Report for %s" %(pharmacy)
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"

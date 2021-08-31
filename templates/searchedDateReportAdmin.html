@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>last week report</title>
+    <title>date searched report</title>
     <style>
         @page {
             size: a4 portrait;   
@@ -29,12 +29,11 @@
     FARG: <strong>Country Level</strong><br><br>
         <img class="logo" src="http://localhost:8000/static/images/ikingantego.jpg" alt="" width="80px" height="60px">
 
-
     </div>
     <br>
 
     <div id="content_frame"> 
-    <h1 style="text-align: center;">Exam Provided by All Hospitals in 7 Days Ago</h1> <br>
+    <h1 style="text-align: center;">Exam Provided by All Hospitals at {{date_searched}}</h1> <br>
 
     <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
             <thead>
@@ -47,13 +46,13 @@
                 </tr>
             </thead>
             <tbody>
-            {% for last_week in examsLastWeek %}
+            {% for exam in examsDateSearched %}
                 <tr>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.hospital }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.beneficiary }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.exam }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.exam.price }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.date_created }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ exam.hospital }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ exam.beneficiary }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ exam.exam }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ exam.exam.price }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ exam.date_created }}</td>
                 </tr>
             {% endfor %}
             
@@ -62,8 +61,8 @@
     </div>
 
     <br><br>
-    <strong>Total Cost: {{examsLastWeekTotalSum}}</strong>  <br><br>
-    <h1 style="text-align: center;">Drugs Provided by All Pharmacies in 7 Days Ago</h1> <br>
+    <strong>Total Cost: {{examsDateSearchedTotalSum}}</strong>  <br><br>
+    <h1 style="text-align: center;">Drugs Provided by All Pharmacies at {{date_searched}}</h1> <br>
 
     <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
             <thead>
@@ -78,14 +77,14 @@
                 </tr>
             </thead>
             <tbody>
-            {% for last_week in drugsLastWeek %}
+            {% for drug in drugsDateSearched %}
                 <tr>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.pharmacy }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.beneficiary }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.drug }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.quantity }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.totalPrice }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_week.date_created }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.pharmacy }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.beneficiary }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.drug }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.quantity }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.totalPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drug.date_created }}</td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -93,7 +92,7 @@
     </div>
 
     <br><br>
-    <strong>Total Cost: {{drugsLastWeekTotalSum}}</strong>  <br><br><br><br><br>
+    <strong>Total Cost: {{drugsDateSearchedTotalSum}}</strong>  <br><br><br><br><br>
     <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
     <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
     

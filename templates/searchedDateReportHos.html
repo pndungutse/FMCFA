@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>compare 2 months hospital</title>
+    <title>last month report</title>
     <style>
         @page {
             size: a4 portrait;   
@@ -24,18 +24,18 @@
     </style>
 </head>
 <body>
+
     <div id="header_content"> 
     User: <strong>{{user}}</strong><br><br>
     Hospital: <strong>{{hospital}}</strong><br><br>
     Address: <strong>{{hospital.address}}</strong><br><br>
         <img class="logo" src="http://localhost:8000/static/images/ikingantego.jpg" alt="" width="80px" height="60px">
-    
 
     </div>
     <br>
 
     <div id="content_frame"> 
-    <h1 style="text-align: center;">Exam Provided by {{hospital}} for the month of {{month1Selected}}</h1> <br>
+    <h1 style="text-align: center;">Exam Provided by {{hospital}} in at {{date_searched}}</h1> <br>
 
     <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
             <thead>
@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for exam in medical_exams_month1 %}
+            {% for exam in examsDateSearched %}
                 <tr>
                     <td style="height: 35px; padding-left: 10px;">{{ exam.hospital }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ exam.beneficiary }}</td>
@@ -60,39 +60,15 @@
             
             </tbody>
         </table>
-        <br><br>
-        <strong>Total Costs for the month of {{month1Selected}}: {{medical_exams_month1Sum}} Rwfs</strong> 
-<br><br><br>
-<h1 style="text-align: center;">Exam Provided by {{hospital}} for the month of {{month2Selected}}</h1> <br>
-
-    <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
-            <thead>
-                <tr>
-                    <th style="height: 35px;">Hospital</th>
-                    <th style="height: 35px;">Beneficiary </th>
-                    <th style="height: 35px; margin-right: 35px;">Medical Exam</th>
-                    <th style="height: 35px;">Exam Price </th>
-                    <th style="height: 35px;">Date Provided </th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for exam in medical_exams_month2 %}
-                <tr>
-                    <td style="height: 35px; padding-left: 10px;">{{ exam.hospital }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ exam.beneficiary }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ exam.exam }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ exam.exam.price }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ exam.date_created }}</td>
-                </tr>
-            {% endfor %}
-            
-            </tbody>
-        </table>
-        <br><br>
-        <strong>Total Costs for the month of {{month2Selected}}: {{mdedical_exams_month2Sum}}</strong> 
-
     </div>
-   
-   
+
+    <br><br>
+    <strong>Total Cost: {{examsDateSearchedTotalSum}}</strong>  <br><br>
+  <br><br><br><br><br>
+    <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+    <p style="margin-left: 550px;"><strong>{{hospital}}</strong></p>
+
+    <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
+    
 </body>
 </html>

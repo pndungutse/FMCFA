@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>last month report</title>
+    <title>last week report</title>
     <style>
         @page {
             size: a4 portrait;   
@@ -27,34 +27,39 @@
 
     <div id="header_content"> 
     User: <strong>{{user}}</strong><br><br>
-    Hospital: <strong>{{hospital}}</strong><br><br>
-    Address: <strong>{{hospital.address}}</strong><br><br>
-    <img class="logo" src="http://localhost:8000/static/images/ikingantego.jpg" alt="" width="80px" height="60px">
+    Hospital: <strong>{{pharmacy}}</strong><br><br>
+    Address: <strong>{{pharmacy.address}}</strong><br><br>
+        <img class="logo" src="http://localhost:8000/static/images/ikingantego.jpg" alt="" width="80px" height="60px">
+
 
     </div>
     <br>
 
     <div id="content_frame"> 
-    <h1 style="text-align: center;">Exam Provided by {{hospital}} in 30 Days Ago</h1> <br>
+    <h1 style="text-align: center;">Drugs Provided by {{pharmacy}} in at {{date_searched}}</h1> <br>
 
     <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
             <thead>
                 <tr>
-                    <th style="height: 35px;">Hospital</th>
+                    <th style="height: 35px;">Pharmacy</th>
                     <th style="height: 35px;">Beneficiary </th>
-                    <th style="height: 35px; margin-right: 35px;">Medical Exam</th>
+                    <th style="height: 35px; margin-right: 35px;">Drug Name</th>
+                    <th style="height: 35px; margin-right: 35px;">Drug Quantity</th>
                     <th style="height: 35px;">Exam Price </th>
+                    <th style="height: 35px;">Total Price </th>
                     <th style="height: 35px;">Date Provided </th>
                 </tr>
             </thead>
             <tbody>
-            {% for last_month in examsLastMonth %}
+            {% for drugs_date in drugsDateSearchedYear %}
                 <tr>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_month.hospital }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_month.beneficiary }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_month.exam }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_month.exam.price }}</td>
-                    <td style="height: 35px; padding-left: 10px;">{{ last_month.date_created }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.pharmacy }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.beneficiary }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.drug }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.quantity }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.drug.unitPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.totalPrice }}</td>
+                    <td style="height: 35px; padding-left: 10px;">{{ drugs_date.date_created }}</td>
                 </tr>
             {% endfor %}
             
@@ -63,10 +68,10 @@
     </div>
 
     <br><br>
-    <strong>Total Cost: {{examsLastMonthTotalSum}}</strong>  <br><br>
+    <strong>Total Cost: {{drugsDateSearchedTotalSum}}</strong>  <br><br>
   <br><br><br><br><br>
     <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
-    <p style="margin-left: 550px;"><strong>{{hospital}}</strong></p>
+    <p style="margin-left: 550px;"><strong>{{pharmacy}}</strong></p>
 
     <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
     

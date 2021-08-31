@@ -24,6 +24,8 @@
             <a href="{% url 'pass' beneficiary.id %}" class="btn btn-info form-control mb-4 text-white">Provide Pass for Treatment</a>
             <a href="{% url 'provide_ordonance' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Record Ordonace</a>
             <a href="{% url 'medical_exams' pk=beneficiary.id %}" class="btn btn-primary form-control mb-4">Record Medial Exams</a>
+            <a href="{% url 'addSuggestion' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Any Suggestion?</a>
+
 
         </div>
     </div>

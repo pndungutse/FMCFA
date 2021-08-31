@@ -1,0 +1,55 @@
+
+{% extends 'dashboard_layout.html' %} {% block title %}list of suggestions{% endblock %} {% block body %}
+
+
+<div class="content-dashboard">
+    <h3 class="text-uppercase text-info">list of suggestions</h3>
+    {% comment %} {% if user.is_superuser %}
+    <a class="btn btn-primary mt-1 mb-1" href="{% url 'create_beneficiary' %}" style="text-decoration: none;">Add
+        beneficiary</a>
+        {% endif %} {% endcomment %}
+    <div class="row">
+            {% comment %} {% include 'generic/filter_form.html' %} {% endcomment %}
+
+        <div class="col-md-12 card shadow-sm  pb-7 p-4">
+            <table class="table table-hover">
+                <caption></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Hospital</th>
+                        <th scope="col">Beneficiary Name</th>
+                        <th scope="col">Beneficiary Code</th>
+                        <th scope="col">Suggestion Title</th>
+                        <th scope="col">Suggestion Description</th>
+                        <th scope="col">Suggestion Suggestion</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%if suggestions %}{% for new in suggestions %}
+                    <tr>
+                        <td>{{ new.hospital|slice:"20" }}{% if new.hospital|length > 20 %}...{% endif %}
+                        <td>{{ new.beneficiary|slice:"20" }}{% if new.beneficiary|length > 20 %}...{% endif %}
+                        </td>
+                        <td>{{ new.beneficiary|slice:"20" }}{% if new.beneficiary|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.title|slice:"20" }}{% if new.title|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.description|slice:"20" }}{% if new.description|length > 20 %}...{% endif %}</td>
+                        <td>{{ new.suggestion|slice:"20" }}{% if new.suggestion|length > 20 %}...{% endif %}</td>
+                        <td><a href="" class="btn btn-info">PDF View</a></td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan="2">
+                            <p class="text-centered ">No Data to Display</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            {% include 'generic/paginator.html' %}
+        </div>
+    </div>
+</div>
+<script>
+</script>
+{% endblock %}
