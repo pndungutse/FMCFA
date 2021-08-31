@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>suggestion</title>
+    <style>
+        @page {
+            size: a4 portrait;   
+            @frame footer_frame {
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+            @frame header_frame {
+                -pdf-frame-content: header-content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            
+            @frame content_frame {
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }   
+        }
+    </style>
+</head>
+<body>
+    <div id="header_content"> 
+    FARG: <strong>Country Level</strong><br><br>
+        <img class="logo" src="http://localhost:8000/static/images/ikingantego.jpg" alt="" width="80px" height="60px">
+
+    
+    </div>
+    <br><br>
+    Suggestion Hospital: <strong>{{suggestion.hospital}}</strong> <br> <br>
+    Suggestion Beneficiary: <strong>{{suggestion.beneficiary}}</strong> <br> <br>
+    Suggestion Beneficiary Code: <strong>{{suggestion.beneficiary.ben_code}}</strong>
+
+
+    <br><br>
+
+    <div id="content_frame">
+        <p style="font-size: 16px;"><strong>Reason:</strong> {{suggestion.title}} </p> 
+        <br>
+
+        <p>{{suggestion.description}}</p>
+        <br><br>
+
+        <p>{{suggestion.suggestion}}</p>
+        <br><br>
+    </div>
+    <p style="margin-left: 550px;"><strong>{{user}}</strong></p>
+    <p style="margin-left: 550px;"><strong>Admin Country Level</strong></p>
+</body>
+</html>

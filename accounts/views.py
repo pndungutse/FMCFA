@@ -144,3 +144,4 @@ def viewSuggestions(request):
     suggestions = Suggestion.objects.all()
     context = {'suggestions': suggestions}
     return render(request, 'suggestions.html', context)
+    

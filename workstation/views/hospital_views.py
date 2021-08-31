@@ -384,6 +384,25 @@ def addSuggestion(request, pk):
             return redirect('hos_dashboard')
     context = {'form':form, 'title':title}
     return render(request, 'suggestionForm.html',context)
+
+def suggestionPDF(request, pk):
+    user = request.user
+    template = get_template('suggestionPDF.html')
+    suggestion = Suggestion.objects.get(id=pk)
+    
+    
+    context = {'suggestion': suggestion, 'user':user}
+    pdf= render_to_pdf('suggestionPDF.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        file_name = "suggestion"
+        content = "inline; filename='%s'" %(file_name)
+        download = request.GET.get("download")
+        if download:
+            content = "attachment; filename='%s'" %(file_name)
+        response['Content-Disposition'] = content
+        return response
+    return HttpResponse*"Not found"
     
     
     
