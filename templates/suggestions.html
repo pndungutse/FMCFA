@@ -35,7 +35,7 @@
                         <td>{{ new.title|slice:"20" }}{% if new.title|length > 20 %}...{% endif %}</td>
                         <td>{{ new.description|slice:"20" }}{% if new.description|length > 20 %}...{% endif %}</td>
                         <td>{{ new.suggestion|slice:"20" }}{% if new.suggestion|length > 20 %}...{% endif %}</td>
-                        <td><a href="" class="btn btn-info">PDF View</a></td>
+                        <td><a href="{% url 'suggestion' new.id %}" class="btn btn-info">PDF View</a></td>
                     </tr>
                     {% endfor %} {% else %}
                     <tr>
