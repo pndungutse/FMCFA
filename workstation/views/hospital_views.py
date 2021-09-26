@@ -137,7 +137,7 @@ def providePassToBeneficiary(request, pk):
         beneficiary=beneficiary,
     )
     
-    context = {'hospital':hospital, 'beneficiary':beneficiary}
+    context = {'hospital':hospital, 'beneficiary':beneficiary, 'user':user}
     html = template.render(context)
     pdf= render_to_pdf('workstation/providePass.html', context)
     if pdf:
@@ -187,7 +187,7 @@ def provide_ordonance(request, pk):
             ordonance.hospital = hospital
             ordonance.status = 'PENDING'
             ordonance.save()
-            sweetify.success(request, success, text='You have successfully gave medical exam', icon='success', timerProgressBar='true', timer=3000)   
+            sweetify.success(request, success, text='You have successfully recorded drugs', icon='success', timerProgressBar='true', timer=3000)   
             return redirect(request.path)
         
     pending_medecines = beneficiary.ordonance_set.filter(status='PENDING', hospital=hospital)
