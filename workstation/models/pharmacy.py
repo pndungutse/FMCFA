@@ -26,7 +26,7 @@ class PharmacyForm(forms.ModelForm):
         model = Pharmacy
         fields = '__all__'
         widgets = {
-            'name': TextInput(attrs={'class': 'form-control', 'placeholder': "Enter pharmacist"}),
+            'name': TextInput(attrs={'class': 'form-control', 'placeholder': "Enter pharmacy"}),
             'address': TextInput(attrs={'class': 'form-control', 'placeholder': "Enter your Address"}),
             'agent': forms.Select(attrs={'class': 'h-form-control'}),
         }

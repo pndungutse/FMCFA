@@ -299,12 +299,12 @@ def datePharPDF(request):
         
     if date_search:
         date_searched = date_search
-        todaysDate = datetime.today()
+        # todaysDate = datetime.today()
         # print(date_searched)
         # print(todaysDate.date())
     
-    drugsDateSearchedYear = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=date_searched)
-    drugsDateSearchedTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__gte=date_searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
+    drugsDateSearchedYear = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__date=date_searched)
+    drugsDateSearchedTotalSum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__date=date_searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
     
     context = {'drugsDateSearchedYear':drugsDateSearchedYear, 'user':user, 'drugsDateSearchedTotalSum':drugsDateSearchedTotalSum,
                'user':user, 'pharmacy':pharmacy, 'date_searched':date_searched}

@@ -23,7 +23,7 @@
             <a id="delete"></a> {% endcomment %}
             <a href="{% url 'pass' beneficiary.id %}" class="btn btn-info form-control mb-4 text-white">Provide passing paper</a>
             <a href="{% url 'provide_ordonance' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Record ordonace</a>
-            <a href="{% url 'medical_exams' pk=beneficiary.id %}" class="btn btn-primary form-control mb-4">Record medial exam</a>
+            <a href="{% url 'medical_exams' pk=beneficiary.id %}" class="btn btn-primary form-control mb-4">Record medical exam</a>
             <a href="{% url 'addSuggestion' pk=beneficiary.id %}" class="btn btn-success form-control mb-4">Any Suggestion?</a>
 
 
