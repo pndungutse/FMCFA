@@ -63,7 +63,7 @@
         <br><br>
         <strong>Total Costs for the month of {{month1Selected}}: {{medical_exams_month1Sum}} Rwfs</strong> 
 <br><br><br>
-<h1 style="text-align: center;">Exam Provided by {{hospital}} for the month of {{month2Selected}}</h1> <br>
+<h1 style="text-align: center;">Exam Provided by {{hospital}} for the month of {{month2Searched}}</h1> <br>
 
     <table class="styled-table" border="1" cellspacing="0" cellpadding="5">
             <thead>
@@ -76,7 +76,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for exam in medical_exams_month2 %}
+            {% for exam in mdedical_exams_month2 %}
                 <tr>
                     <td style="height: 35px; padding-left: 10px;">{{ exam.hospital }}</td>
                     <td style="height: 35px; padding-left: 10px;">{{ exam.beneficiary }}</td>

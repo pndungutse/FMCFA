@@ -264,11 +264,11 @@ def comapare2MonthsPhar(request):
             month1Searched = month1
             if month2:
                 month2Searched = month2
-                drugs_month1 = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month1Searched)
-                drugs_month1Sum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month1Searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
+                drugs_month1 = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year=yearSearched, date_created__month=month1Searched)
+                drugs_month1Sum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year=yearSearched, date_created__month=month1Searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
                 
-                drugs_month2 = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month2Searched)
-                drugs_month2Sum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year__gte=yearSearched, date_created__month=month2Searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
+                drugs_month2 = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year=yearSearched, date_created__month=month2Searched)
+                drugs_month2Sum = DrugsIssuing.objects.filter(pharmacy=pharmacy, date_created__year=yearSearched, date_created__month=month2Searched).aggregate(Sum('totalPrice')).get('totalPrice__sum', 0.00)
             
     context = {'drugs_month1':drugs_month1, 'drugs_month2':drugs_month2, 'user':user, 'pharmacy':pharmacy,
                'drugs_month1Sum':drugs_month1Sum,'month1Selected': month1Searched, 'month2Searched':month2Searched,

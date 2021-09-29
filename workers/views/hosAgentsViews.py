@@ -217,11 +217,11 @@ def dateSearchedAdminReport(request):
     
         # last_year = datetime.today() - timedelta(days=365)
     
-    examsDateSearched = Medical_Exam.objects.filter(date_created__gte=date_searched)
-    examsDateSearchedTotalSum = Medical_Exam.objects.filter(date_created__gte=date_searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+    examsDateSearched = Medical_Exam.objects.filter(date_created__date=date_searched)
+    examsDateSearchedTotalSum = Medical_Exam.objects.filter(date_created__date=date_searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
     
-    drugsDateSearched = DrugsIssuing.objects.filter(date_created__gte=date_searched)
-    drugsDateSearchedTotalSum = DrugsIssuing.objects.filter(date_created__gte=date_searched).aggregate(Sum('totalPrice')).get('totalPrice__sum')
+    drugsDateSearched = DrugsIssuing.objects.filter(date_created__date=date_searched)
+    drugsDateSearchedTotalSum = DrugsIssuing.objects.filter(date_created__date=date_searched).aggregate(Sum('totalPrice')).get('totalPrice__sum')
     context = {'examsDateSearched':examsDateSearched, 'user':user, 'examsDateSearchedTotalSum':examsDateSearchedTotalSum,
                'drugsDateSearched':drugsDateSearched, 'drugsDateSearchedTotalSum':drugsDateSearchedTotalSum, 'date_searched':date_searched}
     html = template.render(context)
@@ -335,8 +335,8 @@ def dateHosPDF(request):
     
         # last_year = datetime.today() - timedelta(days=365)
         
-        examsDateSearched = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=date_searched)
-        examsDateSearchedTotalSum = Medical_Exam.objects.filter(hospital=hospital, date_created__gte=date_searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+        examsDateSearched = Medical_Exam.objects.filter(hospital=hospital, date_created__date=date_searched)
+        examsDateSearchedTotalSum = Medical_Exam.objects.filter(hospital=hospital, date_created__date=date_searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
         
         print(examsDateSearched)
         

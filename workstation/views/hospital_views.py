@@ -340,11 +340,11 @@ def comapare2MonthsHos(request):
             month1Searched = month1
             if month2:
                 month2Searched = month2
-                medical_exams_month1 = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month1Searched)
-                medical_exams_month1Sum = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month1Searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+                medical_exams_month1 = Medical_Exam.objects.filter(hospital=hospital, date_created__year=yearSearched, date_created__month=month1Searched)
+                medical_exams_month1Sum = Medical_Exam.objects.filter(hospital=hospital, date_created__year=yearSearched, date_created__month=month1Searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
                 
-                mdedical_exams_month2 = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month2Searched)
-                mdedical_exams_month2Sum = Medical_Exam.objects.filter(hospital=hospital, date_created__year__gte=yearSearched, date_created__month=month2Searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
+                mdedical_exams_month2 = Medical_Exam.objects.filter(hospital=hospital, date_created__year=yearSearched, date_created__month=month2Searched)
+                mdedical_exams_month2Sum = Medical_Exam.objects.filter(hospital=hospital, date_created__year=yearSearched, date_created__month=month2Searched).aggregate(Sum('exam__price')).get('exam__price__sum', 0.00)
             
     context = {'medical_exams_month1':medical_exams_month1, 'mdedical_exams_month2':mdedical_exams_month2, 'user':user, 'hospital':hospital,
                'medical_exams_month1Sum':medical_exams_month1Sum,'month1Selected': month1Searched, 'month2Searched':month2Searched,
