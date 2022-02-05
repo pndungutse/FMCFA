@@ -1,6 +1,7 @@
 from workstation.models.hospital import Drug, DrugsIssuing, Suggestion
 from beneficiary.models import Beneficiary
 from django.shortcuts import render, redirect
+import requests
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from accounts.decolator import unauthenticated_user, allowed_users
@@ -15,6 +16,7 @@ from workstation.models.hospital import Hospital, Pass
 from workstation.models.pharmacy import Pharmacy
 import datetime
 from django.db.models import Sum
+
 
 
 
@@ -144,4 +146,6 @@ def viewSuggestions(request):
     suggestions = Suggestion.objects.all()
     context = {'suggestions': suggestions}
     return render(request, 'suggestions.html', context)
+
+
     

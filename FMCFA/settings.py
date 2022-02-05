@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'FMCFA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'FMCFA',
+        'NAME': 'fargfmcfa',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',

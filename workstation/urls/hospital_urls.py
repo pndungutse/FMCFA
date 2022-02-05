@@ -24,4 +24,5 @@ urlpatterns = [
     path('comapare2MonthsHos', comapare2MonthsHos, name='comapare2MonthsHos'),
     path('addSuggestion/<str:pk>', addSuggestion, name='addSuggestion'),
 
+
 ]

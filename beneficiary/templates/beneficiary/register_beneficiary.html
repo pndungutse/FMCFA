@@ -18,8 +18,8 @@
 
           <div class="col-md-6">
             <div class="form-group">
-              <label for="{{ form.email.id_for_label }}">District</label><span style="color:red;">*</span> <br>
-              {{form.district}} {% for error in form.district.errors %}
+              <label for="{{ form.province.id_for_label }}">Province</label><span style="color:red;">*</span> <br>
+              {{form.province}} {% for error in form.province.errors %}
               <p class="text-danger"> {{error}}</p>
               {% endfor %}
             </div>
@@ -39,9 +39,9 @@
               
             <!-- </div> -->
             <div class="form-group">
-              <label for="{{ form.dob.id_for_label }}">Sector</label><span style="color:red;">*</span><br>
-              {{form.sector}}
-              {% for error in form.sector.errors %}
+              <label for="{{ form.district.id_for_label }}">District</label><span style="color:red;">*</span><br>
+              {{form.district}}
+              {% for error in form.district.errors %}
               <p class="text-danger"> {{error}}</p>
               {% endfor %}
             </div>
@@ -52,9 +52,9 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="{{ form.gender.id_for_label }}">Gender</label><span style="color:red;">*</span> <br>
-              {{form.gender}}
-              {% for error in form.gender.errors %}
+              <label for="{{ form.phone.id_for_label }}">Phone Number</label><span style="color:red;">*</span> <br>
+              {{form.phone}}
+              {% for error in form.phone.errors %}
               <p class="text-danger"> {{error}}</p>
               {% endfor %}
             </div>
@@ -62,8 +62,8 @@
           <!-- <div class="row"> -->
             <div class="col-md-6">
               <div class="form-group">
-                <label for="{{ form.cell.id_for_label }}">Cell</label><span style="color:red;">*</span><br>
-                {{form.cell}}
+                <label for="{{ form.sector.id_for_label }}">Sector</label><span style="color:red;">*</span><br>
+                {{form.sector}}
                 {% for error in form.cell.errors %}
                 <p class="text-danger"> {{error}}</p>
                 {% endfor %}
@@ -85,8 +85,8 @@
         </div>
         <div class="col-md-6">
           <div class="form-group">
-            <label for="{{ form.address.id_for_label }}">Address</label><span style="color:red;">*</span><br>
-            {{form.address}} {% for error in form.address.errors %}
+            <label for="{{ form.cell.id_for_label }}">Cell</label><span style="color:red;">*</span><br>
+            {{form.cell}} {% for error in form.cell.errors %}
             <p class="text-danger"> {{error}}</p>
             {% endfor %}
           </div>
@@ -95,13 +95,22 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for="{{ form.province.id_for_label }}">Province</label><span style="color:red;">*</span> <br>
-              {{form.province}}
-              {% for error in form.province.errors %}
+              <label for="{{ form.address.id_for_label }}">Address</label><span style="color:red;">*</span> <br>
+              {{form.address}}
+              {% for error in form.address.errors %}
               <p class="text-danger"> {{error}}</p>
               {% endfor %}
             </div>
         </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="{{ form.gender.id_for_label }}">Gender</label><span style="color:red;">*</span> <br>
+            {{form.gender}}
+            {% for error in form.gender.errors %}
+            <p class="text-danger"> {{error}}</p>
+            {% endfor %}
+          </div>
+      </div>
         </div>
         <br><br>
         <a href="javascript:history.go(-1)" class="btn btn-outline-primary mt-2 text-size-sm px-5">Cancel</a>

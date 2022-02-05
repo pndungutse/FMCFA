@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from twilio.rest import Client
 from re import template
 import re
 from workstation.models.hospital import Drug, DrugsIssuing, DrugsIssuingForm, Medical_Exam
@@ -23,12 +24,23 @@ from django.contrib.auth.decorators import user_passes_test
 from django.forms import inlineformset_factory
 from django.db.models import Sum
 import datetime
+import africastalking
+
+# Initialize SDK
+username = "sandbox"    # use 'sandbox' for development in the test environment
+api_key = "3719d93b19cf4f83c035fe72990152672899cec551bf70751c83561e55248ca4"      # use your sandbox app API key for development in the test environment
+africastalking.initialize(username, api_key)
+
 
 hos_list_template = 'workstation/hospital_list.html'
 create_hos_template = 'workstation/hospital_form.html'
 success = 'Success!'
 error = 'Error!'
 error_message = 'Something Wrong Happened, please Try Again'
+
+account_sid = 'ACc136fad72f05e6360bf19273ba2c2658'
+auth_token = 'e6d60cf6a9ef17cdeac6ca579e85086f'
+client = Client(account_sid, auth_token)
 
 
 
@@ -136,6 +148,11 @@ def providePassToBeneficiary(request, pk):
         hospital=hospital,
         beneficiary=beneficiary,
     )
+    # message = client.messages.create(
+    #                     body=f'This message is coming from FMCFA and is allowing beneficiary - {beneficiary.name} - with code - {beneficiary.ben_code} to be treated',
+    #                     from_='+19035825456',
+    #                     to=beneficiary.phone,
+    #                 )
     
     context = {'hospital':hospital, 'beneficiary':beneficiary, 'user':user}
     html = template.render(context)
@@ -150,6 +167,17 @@ def providePassToBeneficiary(request, pk):
         response['Content-Disposition'] = content
         return response
     return HttpResponse*"Not found"
+
+def make_post_request(request):
+    message = client.messages.create(
+                        body="Hello World Message",
+                        from_='+19035825456',
+                        to='+250788471299'
+                    )
+
+    print(message.sid)
+    context = {}
+    return render(request, 'workstation/success.html', context)
 
 def provide_medical_exams(request, pk):
     beneficiary = Beneficiary.objects.get(id=pk)

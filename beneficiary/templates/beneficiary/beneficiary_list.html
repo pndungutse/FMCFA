@@ -1,7 +1,4 @@
-
 {% extends 'dashboard_layout.html' %} {% block title %}Beneficiary{% endblock %} {% block body %}
-
-
 <div class="content-dashboard">
     <h3 class="text-uppercase text-info">list of Beneficiary</h3>
     {% if user.is_superuser %}
@@ -24,6 +21,7 @@
                         <th scope="col">Sector</th>
                         <th scope="col">Cell</th>
                         <th scope="col">Address</th>
+                        <th scope="col">Phone</th>       
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +36,7 @@
                         <td>{{ new.sector|slice:"20" }}{% if new.sector|length > 20 %}...{% endif %}</td>
                         <td>{{ new.cell|slice:"20" }}{% if new.cell|length > 20 %}...{% endif %}</td>
                         <td>{{ new.address|slice:"15" }}{% if new.address|length > 15 %}...{% endif %}</td>
+                        <td>{{ new.phone|slice:"15" }}{% if new.phone|length > 15 %}...{% endif %}</td>
                     </tr>
                     {% endfor %} {% else %}
                     <tr>
