@@ -17,6 +17,7 @@ class Beneficiary(models.Model):
     gender = models.CharField(max_length=6, choices=GENDER, default='MALE')
     address = models.CharField(max_length=100, null=True, blank=True)
     phone = models.CharField(max_length=15, null=True, blank=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
     dob = models.DateTimeField()
     province = models.CharField(max_length=100, null=True, blank=True)
     district = models.CharField(max_length=100, null=True, blank=True)

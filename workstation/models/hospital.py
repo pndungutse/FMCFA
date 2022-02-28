@@ -104,7 +104,6 @@ class HospitalForm(forms.ModelForm):
             'name': TextInput(attrs={'class': 'form-control', 'placeholder': "Enter Hospital Name"}),
             'address': TextInput(attrs={'class': 'form-control', 'placeholder': "Enter your Address"}),
             'agent': forms.Select(attrs={'class': 'h-form-control'}),
-
         }
         
 class Medical_ExamForm(forms.ModelForm):

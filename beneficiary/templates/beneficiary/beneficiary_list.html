@@ -21,7 +21,8 @@
                         <th scope="col">Sector</th>
                         <th scope="col">Cell</th>
                         <th scope="col">Address</th>
-                        <th scope="col">Phone</th>       
+                        <th scope="col">Phone</th>  
+                        <th scope="col">Email</th>       
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
                         <td>{{ new.cell|slice:"20" }}{% if new.cell|length > 20 %}...{% endif %}</td>
                         <td>{{ new.address|slice:"15" }}{% if new.address|length > 15 %}...{% endif %}</td>
                         <td>{{ new.phone|slice:"15" }}{% if new.phone|length > 15 %}...{% endif %}</td>
+                        <td>{{ new.email|slice:"15" }}{% if new.email|length > 15 %}...{% endif %}</td>
                     </tr>
                     {% endfor %} {% else %}
                     <tr>

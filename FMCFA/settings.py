@@ -180,7 +180,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'docslostfound.noreply@gmail.com'
-EMAIL_HOST_PASSWORD = 'lewandowiski'
+EMAIL_HOST_USER = 'info.fmcfa@gmail.com'
+EMAIL_HOST_PASSWORD = 'Kevin?01'
 EMAIL_USE_TLS = True
 EMAIL_TIMEOUT = 30000

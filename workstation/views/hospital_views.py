@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from twilio.rest import Client
+from django.core.mail import send_mail
 from re import template
 import re
 from workstation.models.hospital import Drug, DrugsIssuing, DrugsIssuingForm, Medical_Exam
@@ -153,6 +154,13 @@ def providePassToBeneficiary(request, pk):
     #                     from_='+19035825456',
     #                     to=beneficiary.phone,
     #                 )
+    send_mail(
+    'Allowing Beneficiary for treatment',
+    f'This mail is here for allowing beneficiary - {beneficiary.name} with code - {beneficiary.ben_code} to be treated at {hospital.name} Hospital.',
+    'info.fmcfa@gmail.com',
+    [beneficiary.email],
+    fail_silently=False,
+)
     
     context = {'hospital':hospital, 'beneficiary':beneficiary, 'user':user}
     html = template.render(context)
